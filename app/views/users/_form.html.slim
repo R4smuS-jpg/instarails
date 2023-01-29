@@ -1,4 +1,6 @@
 = form_with model: @user do |f|
+  = render 'shared/error_messages', model: @user
+
   p
     = f.label :email
     = f.email_field :email
