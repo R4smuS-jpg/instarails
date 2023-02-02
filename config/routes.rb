@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
   # root path
   root 'users#index'
-  
+
   # users
-  resources :users
+  get '/sign-up', to: 'users#new'
+  resources :users, only: %i[index
+                             create
+                             show
+                             edit
+                             update
+                             destroy]
 
   # sessions
-  resources :sessions, only: %i[new create destroy]
+  get '/sign-in', to: 'sessions#new'
+  resources :sessions, only: %i[create destroy]
 end
