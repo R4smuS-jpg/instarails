@@ -2,4 +2,11 @@ h1 User Info
 
 = render @user
 
-= link_to 'Delete User', @user, method: :delete
+
+- if correct_user?
+  p
+  = link_to 'Sign Out', session_path, method: :delete
+  p
+  = link_to 'Delete User', @user, method: :delete
+  p
+  = link_to 'Edit User', edit_user_path(@user)

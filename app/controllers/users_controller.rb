@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  
+  before_action :redirect_if_not_signed_in, only: %i[edit update destroy]
+  before_action :redirect_if_signed_in, only: %i[new create]
+  before_action :redirect_if_incorrect_user, only: %i[edit update destroy]
 
   def index
     @users = User.all
@@ -14,6 +18,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = 'You have successfully signed up'
+      sign_in(@user)
       redirect_to @user
     else
       render :new
@@ -28,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = 'You have successfully updated your profile'
+      flash[:success] = 'You have successfully updated your account'
       redirect_to @user
     else
       render :edit
@@ -38,6 +43,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:success] = 'You have successfully deleted your account'
+    sign_out
     redirect_to root_path
   end
 

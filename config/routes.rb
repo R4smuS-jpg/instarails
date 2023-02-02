@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # root path
   root 'users#index'
-  
-  resources :users
+
+  # users
+  get '/sign-up', to: 'users#new'
+  resources :users, only: %i[index
+                             create
+                             show
+                             edit
+                             update
+                             destroy]
+
+  # sessions
+  get '/sign-in', to: 'sessions#new'
+  resources :sessions, only: %i[create destroy]
 end
