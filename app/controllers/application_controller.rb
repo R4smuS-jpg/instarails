@@ -1,3 +1,4 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  include Authentication
+  include Authorization
 end
