@@ -45,12 +45,11 @@ ActiveRecord::Schema.define(version: 2023_02_03_105942) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "users_id"
-    t.index ["users_id"], name: "index_posts_on_users_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,5 +65,5 @@ ActiveRecord::Schema.define(version: 2023_02_03_105942) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "posts", "users", column: "users_id"
+  add_foreign_key "posts", "users"
 end
