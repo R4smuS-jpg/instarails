@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
 
+  # relations
+  has_many :posts
+
   # callbacks
   before_save { self.email.downcase! }
 

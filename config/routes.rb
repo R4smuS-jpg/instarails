@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   # users
   get '/sign-up', to: 'users#new'
+  post '/sign-up', to: 'users#create'
   resources :users, only: %i[index
-                             create
                              show
                              edit
                              update
@@ -13,5 +13,16 @@ Rails.application.routes.draw do
 
   # sessions
   get '/sign-in', to: 'sessions#new'
-  resources :sessions, only: %i[create destroy]
+  post '/sign-in', to: 'sessions#create'
+  delete '/sign-out', to: 'sessions#destroy'
+
+  # posts
+  resources :posts, only: %i[index
+                             new
+                             create
+                             show
+                             edit
+                             update
+                             destroy]
+
 end

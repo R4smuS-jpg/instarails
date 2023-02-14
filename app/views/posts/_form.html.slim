@@ -1,0 +1,14 @@
+= form_with model: post do |f|
+  = render 'shared/error_messages', model: post
+
+  p
+    = f.label :content
+    = f.text_field :content
+
+  p
+    = f.label :images
+    = f.file_field :images, multiple: true,
+                            accept: 'image/jpg,image/jpeg,image/png'
+
+  p
+    = f.submit
