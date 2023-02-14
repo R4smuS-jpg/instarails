@@ -10,8 +10,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-
+    @post = current_user.posts.build(post_params)
+    
     if @post.save
       flash[:success] = 'You have successfully created new post'
       redirect_to posts_path
@@ -48,9 +48,9 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:user_id,
+    params.require(:post).permit(
                                  :content,
                                  images: [])
-                         .merge(user_id: current_user.id)
+                         # .merge(user_id: current_user.id)
   end
 end
