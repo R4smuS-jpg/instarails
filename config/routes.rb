@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   # users
   get '/sign-up', to: 'users#new'
+  post '/sign-up', to: 'users#create'
   resources :users, only: %i[index
-                             create
                              show
                              edit
                              update
