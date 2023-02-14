@@ -31,7 +31,7 @@ class PostsController < ApplicationController
       redirect_to @post
       flash[:success] = 'You have successfully updated your post'
     else
-      render.new
+      render :new
     end
   end
 
