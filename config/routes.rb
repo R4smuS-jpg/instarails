@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   # sessions
   get '/sign-in', to: 'sessions#new'
-  resources :sessions, only: %i[create destroy]
+  post '/sign-in', to: 'sessions#create'
+  delete '/sign-out', to: 'sessions#destroy'
 
   # posts
   resources :posts, only: %i[index
