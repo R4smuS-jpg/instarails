@@ -14,4 +14,14 @@ Rails.application.routes.draw do
   # sessions
   get '/sign-in', to: 'sessions#new'
   resources :sessions, only: %i[create destroy]
+
+  # posts
+  resources :posts, only: %i[index
+                             new
+                             create
+                             show
+                             edit
+                             update
+                             destroy]
+
 end
