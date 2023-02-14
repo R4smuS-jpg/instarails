@@ -13,7 +13,6 @@ module Authentication
   def sign_out
     session.delete(:current_user_id)
     @current_user = nil
-    redirect_to sign_in_path
   end
 
   def signed_in?
