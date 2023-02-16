@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # root path
-  root 'users#index'
+  root 'posts#index'
 
   # users
   get '/sign-up', to: 'users#new'
