@@ -1,3 +1,5 @@
 h1 Sign Up
 
-= render 'users/form', user: @user
+= render 'users/form', user: @user,
+                       url: sign_up_path,
+                       method: :post

@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: %i[show edit update destroy]
   
-  before_action :redirect_if_not_signed_in, only: %i[edit update destroy]
-  before_action :redirect_if_signed_in, only: %i[new create]
-  before_action :redirect_if_incorrect_user, only: %i[edit update destroy]
-
   def index
     @users = User.all
+    authorize! @users
   end
 
   def new
+    authorize!
+
     @user = User.new
   end
 
   def create
+    authorize!
+
     @user = User.new(user_params)
 
     if @user.save
@@ -51,6 +53,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def authorize_user!
+    authorize! @user
   end
 
   def user_params

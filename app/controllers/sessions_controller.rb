@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :redirect_if_not_signed_in, only: %i[destroy]
-  before_action :redirect_if_signed_in, only: %i[new create]
+  before_action :authorize_session!, only: %i[new create destroy]
 
   def new
   end
@@ -21,5 +20,12 @@ class SessionsController < ApplicationController
   def destroy
     flash[:success] = 'You have successfully signed out'
     sign_out
+    redirect_to root_path
+  end
+
+  private
+
+  def authorize_session!
+    authorize! with: SessionPolicy
   end
 end

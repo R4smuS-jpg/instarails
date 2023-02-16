@@ -2,11 +2,9 @@ h1 User Info
 
 = render @user
 
-
-- if correct_user?
-  p
-  = link_to 'Sign Out', sign_out_path, method: :delete
-  p
-  = link_to 'Delete User', @user, method: :delete
-  p
-  = link_to 'Edit User', edit_user_path(@user)
+p
+= link_to 'Sign Out', sign_out_path, method: :delete
+p
+= link_to 'Delete User', @user, method: :delete
+p
+= link_to 'Edit User', edit_user_path(@user)
