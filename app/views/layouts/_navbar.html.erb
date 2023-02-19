@@ -1,0 +1,48 @@
+<nav id='navbar' class="navbar navbar-expand-md navbar-light bg-light-green sticky-top">
+  <div class="navbar w-100 navbar-content-wrap">
+    <%= link_to 'InstaRails', root_path, id: 'logo', class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                  data-target="#coll-navbar" aria-controls="coll-navbar"
+                                  aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="coll-navbar">
+      <ul class="navbar-nav mr-auto">
+      <%- if signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Feed</a>
+        </li>
+      <%- end %>
+        <li class="nav-item">
+          <%= link_to 'All Posts', posts_path, class: 'nav-link' %>
+        </li>
+      </ul>
+      <%- if signed_in? %>
+        <ul id='coll-navbar__right' class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <%= link_to 'All Users', users_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                                                         aria-expanded="false"><%= current_user.nickname %></a>
+            <div class="dropdown-menu">
+              <%= link_to 'Account', current_user, class: 'dropdown-item text-decoration-none' %>
+              <%= link_to 'Settings', edit_user_path(current_user), class: 'dropdown-item text-decoration-none' %>
+              <%= link_to 'Sign Out', sign_out_path, method: :delete, class: 'dropdown-item text-decoration-none' %>
+            </div>
+          </li>
+        </ul>
+      <%- else %>
+        <ul id='coll-navbar__right' class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <%= link_to 'Sign In', sign_in_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      <%- end %>
+    </div>
+  </div>
+</nav>

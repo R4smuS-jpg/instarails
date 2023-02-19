@@ -8,13 +8,25 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Josefin+Sans">
+
+    <!-- bootstrap 4.6 -->
+    <%= render 'layouts/bootstrap' %>
   </head>
 
   <body>
-    <%- flash.each do |k, v| %>
-      <%= content_tag(:p, v) %>
-    <%- end %>  
-    
-    <%= yield %>
+    <%= render 'layouts/navbar' %>
+
+    <div class="container">
+      <%- flash.each do |k, v| %>
+        <%= content_tag(:div, v, class: "alert alert-#{k}") %>
+      <%- end %>  
+      
+      <%= yield %>
+    </div>
+
   </body>
 </html>
