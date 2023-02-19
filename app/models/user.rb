@@ -21,7 +21,7 @@ class User < ApplicationRecord
                        uniqueness: true
 
   validates :avatar, content_type: [:png, :jpg, :jpeg, :gif],
-                     size: { less_than: 2.megabytes },
+                     size: { less_than: 5.megabytes },
                      limit: { max: 1 }                       
 
   validates :full_name, presence: true,
