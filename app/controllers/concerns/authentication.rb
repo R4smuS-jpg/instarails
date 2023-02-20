@@ -7,11 +7,11 @@ module Authentication
   end
 
   def sign_in(user)
-    session[:current_user_id] = user.id
+    cookies.encrypted[:current_user_id] = user.id
   end
 
   def sign_out
-    session.delete(:current_user_id)
+    cookies.encrypted.delete(:current_user_id)
     @current_user = nil
   end
 
@@ -20,6 +20,6 @@ module Authentication
   end
 
   def current_user
-    @current_user ||= User.find_by(id: session[:current_user_id])
+    @current_user ||= User.find_by(id: cookies.encrypted[:current_user_id])
   end
 end

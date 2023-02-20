@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :authorize_user!, only: %i[show edit update destroy]
+  before_action :authorize_action!, only: %i[new create]
   
   def index
     @users = User.all
@@ -8,14 +9,10 @@ class UsersController < ApplicationController
   end
 
   def new
-    authorize!
-
     @user = User.new
   end
 
   def create
-    authorize!
-
     @user = User.new(user_params)
 
     if @user.save
@@ -49,6 +46,10 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def delete_avatar
+    current_user.delete_avatar unless current_user.avatar.blank?
+  end
+
   private
 
   def set_user
@@ -57,6 +58,10 @@ class UsersController < ApplicationController
 
   def authorize_user!
     authorize! @user
+  end
+
+  def authorize_action!
+    authorize!
   end
 
   def user_params
