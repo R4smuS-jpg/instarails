@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
   before_action :authorize_user!, only: %i[show]
-  before_action :authorize_current_user!, only: %i[edit update destroy]
+  before_action :authorize_current_user!, only: %i[edit update destroy delete_avatar]
   before_action :authorize_action!, only: %i[new create]
   
   def index
