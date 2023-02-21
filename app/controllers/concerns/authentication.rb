@@ -11,7 +11,8 @@ module Authentication
   end
 
   def sign_out
-    cookies.encrypted.delete(:current_user_id)
+    byebug
+    cookies.delete(:current_user_id)
     @current_user = nil
   end
 

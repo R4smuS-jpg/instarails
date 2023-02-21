@@ -53,6 +53,7 @@ class UsersController < ApplicationController
       flash[:success] = 'You have successfully deleted your avatar'
       redirect_to current_user
     else
+      # kostil' =)
       flash[:success] = 'You have successfully deleted your avatar'
       render :edit
     end
