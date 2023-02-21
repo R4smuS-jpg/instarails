@@ -34,4 +34,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, 
                                     length: { minimum: 8, maximum: 60 }
 
+  def delete_avatar
+    self.avatar.purge
+  end
 end
