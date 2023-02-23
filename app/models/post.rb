@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   has_many_attached :images
 
   # validations
+  validates :user_id, presence: true
   validates :content, length: { maximum: 200 }
   validates :images, attached: true,
                      content_type: [:png, :jpg, :jpeg, :gif],
