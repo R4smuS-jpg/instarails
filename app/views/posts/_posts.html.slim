@@ -1,17 +1,18 @@
 - posts_collection.each_with_index do |p, i|
   div.post-wrap
     = render 'users/avatar', user: p.user, side: 50, link: avatar_link
-    - if current_page?(posts_path)
+    - if current_page?(posts_path) || root_path
       span.user-nickname = link_to p.user.nickname, p.user
     - elsif current_page?(p.user)
       span.user-nickname = p.user.nickname
-      = link_to 'Delete', p, method: :delete,
-                             class: 'btn btn-primary submit-button--red',
-                             style: 'float: right; font-size: 1.2rem; margin-left: 1rem;',
-                             data: { confirm: 'Are you sure?' }
+      - if signed_in?
+        = link_to 'Delete', p, method: :delete,
+                               class: 'btn btn-primary submit-button--red',
+                               style: 'float: right; font-size: 1.2rem; margin-left: 1rem;',
+                               data: { confirm: 'Are you sure?' }
 
-      = link_to 'Edit', edit_post_path(p), class: 'btn btn-primary submit-button',
-                                           style: 'float: right; font-size: 1.2rem;'
+        = link_to 'Edit', edit_post_path(p), class: 'btn btn-primary submit-button',
+                                             style: 'float: right; font-size: 1.2rem;'
 
 
     div[id="carouselIndicators#{i}" class='carousel slide'
