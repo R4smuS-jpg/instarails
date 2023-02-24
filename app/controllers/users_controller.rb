@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
   before_action :authorize_user!, only: %i[show]
-  before_action :authorize_current_user!, only: %i[edit update destroy delete_avatar]
-  before_action :authorize_action!, only: %i[new create]
+  before_action :authorize_current_user!, only: %i[edit
+                                                   update
+                                                   destroy
+                                                   delete_avatar]
+
+  before_action :authorize_action!, only: %i[new
+                                             create]
   
   def index
-    @users = User.all
+    @users = User.by_created_at(:desc)
     authorize! @users
   end
 
@@ -26,6 +31,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user_posts = @user.posts
   end
 
   def edit
@@ -61,18 +67,23 @@ class UsersController < ApplicationController
 
   private
 
+  # should be called if action works with any user
   def set_user
     @user = User.find(params[:id])
   end
 
+  # should be called if policy of action needs a variable
   def authorize_user!
     authorize! @user
   end
 
+  # should be called if action works with current user
   def authorize_current_user!
     authorize! current_user
   end
 
+  # should be called if action must be authenticated
+  # but does not have variable that policy needs to get
   def authorize_action!
     authorize!
   end

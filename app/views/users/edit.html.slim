@@ -1,5 +1,8 @@
-h1 Edit Account Info
+div.row.justify-content-center
+  h1 Edit Account
+  div.w-100
 
-= render 'users/form', user: @user,
-                       url: @user,
-                       method: :patch
+  = render 'users/form', user: current_user,
+                         url: edit_account_path,
+                         method: :patch,
+                         page: :edit

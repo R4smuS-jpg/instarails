@@ -1,4 +1,48 @@
-= render @post
+div.row.justify-content-center
+  div.col-9
+    div.post-wrap
+      = render 'users/avatar', user: @post.user, side: 50, link: true
+      span.user-nickname = link_to @post.user.nickname, @post.user
+      - if @post.user == current_user
+        = link_to 'Delete', p, method: :delete, class: 'btn btn-primary submit-button--red',
+                                                style: 'float: right; font-size: 1.2rem; margin-left: 1rem;'
 
-p
-= link_to 'Delete Post', @post, method: :delete
+        = link_to 'Edit', p, class: 'btn btn-primary submit-button',
+                                             style: 'float: right; font-size: 1.2rem;'
+
+
+      div[id="carouselIndicators" class='carousel slide'
+          data-ride='carousel' data-interval='false']  
+
+        - if @post.images.count > 1
+          ol.carousel-indicators
+            li.active[data-target="#carouselIndicators" data-slide-to='0']
+            - (@post.images.count-1).times do |t|
+              li[data-target="#carouselIndicators" data-slide-to="#{t+1}"]
+
+        div.carousel-inner
+          - @post.images.each_with_index do |img, i|
+            - if i == 0
+              div.carousel-item.active
+                - unless img.content_type == 'image/gif'
+                  = image_tag(img.variant(resize_to_fill: [500, 500]), class: 'd-block w-100')
+                - else  
+                  = image_tag(img, class: 'd-block w-100', height: 500, width: 500)
+            - else
+              div.carousel-item
+                - unless img.content_type == 'image/gif'
+                  = image_tag(img.variant(resize_to_fill: [500, 500]), class: 'd-block w-100')
+                - else  
+                  = image_tag(img, class: 'd-block w-100', height: 500, width: 500)
+
+          - if @post.images.count > 1
+            a.carousel-control-prev[href="#carouselIndicators" role='button'
+                                    data-slide='prev']
+              span.carousel-control-prev-icon[area-hidden='true']
+              span.sr-only Previous
+
+            a.carousel-control-next[href="#carouselIndicators" role='button'
+                                    data-slide='next']
+              span.carousel-control-next-icon[area-hidden='true']     
+              span.sr-only Next
+      span.created-at = @post.created_at.strftime("%d/%m/%Y at %H:%M")

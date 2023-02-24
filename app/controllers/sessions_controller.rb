@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-  before_action :authorize_session!, only: %i[new create destroy]
+  before_action :authorize_session!, only: %i[new
+                                              create
+                                              destroy]
 
   def new
   end

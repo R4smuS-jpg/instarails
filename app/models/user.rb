@@ -2,8 +2,11 @@ class User < ApplicationRecord
   has_secure_password
 
   # relations
-  has_many :posts
+  has_many :posts, dependent: :delete_all
   has_one_attached :avatar
+
+  # scopes
+  scope :by_created_at, ->(order) { User.order(created_at: order) }
 
   # callbacks
   before_save { self.email.downcase! }

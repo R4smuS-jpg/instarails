@@ -1,5 +1,7 @@
-h1 Sign Up
-
-= render 'users/form', user: @user,
-                       url: sign_up_path,
-                       method: :post
+div.row.justify-content-center
+  h1 Sign Up
+  div.w-100
+  = render 'users/form', user: @user,
+                         url: sign_up_path,
+                         method: :post,
+                         page: :new

@@ -1,22 +1,75 @@
-= form_with url: url, model: user do |f|
-  = render 'shared/error_messages', model: user
+= form_with url: url, model: user, class: 'form col-5' do |f|
 
-  p
-    = f.label :email
-    = f.email_field :email
-  p
-    = f.label :nickname
-    = f.text_field :nickname
-  p
-    = f.label :full_name, 'Full Name'
-    = f.text_field :full_name
-  p
-    = f.label :password
-    = f.password_field :password
-  p
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  p
-    = f.submit 'Submit'
+  div.form-group.w-100
+    = f.label :email, for: 'email-input'
+    = f.email_field :email, class: "form-control w-100 #{field_has_error(user, :email)}",
+                            id: "email-input",
+                            aria: { describedly: 'email-help' },
+                            placeholder: "example@gmail.com"
+    = render 'shared/field_errors', model: user, field_name: :email
 
+  div.form-group.w-100
+    = f.label :nickname, for: 'nickname-input'
+    = f.text_field :nickname, class: "form-control w-100 #{field_has_error(user, :nickname)}", 
+                              id: "nickname-input",
+                              aria: { describedly: 'nickname-help' },
+                              placeholder: "username123"
+    = render 'shared/field_errors', model: user, field_name: :nickname
+
+  div.form-group.w-100
+    = f.label :avatar, for: 'avatar-input'
+    = f.file_field :avatar, class: "form-control w-100 #{field_has_error(user, :avatar)}", 
+                            id: "avatar-input",
+                            aria: { describedly: 'avatar-help' }
+    = render 'shared/field_errors', model: user, field_name: :avatar
+
+  - if signed_in? && !user.avatar.blank?
+    = link_to 'Delete Avatar', delete_avatar_path, method: :delete,
+                                                   data: { confirm: 'Are you sure?' },
+                                                   class: 'btn btn-primary submit-button--red',
+                                                   style: 'margin-bottom: 1rem;'
+
+
+  div.form-group.w-100
+    = f.label :full_name, 'Full Name', for: 'full_name-input'
+    = f.text_field :full_name, class: "form-control w-100 #{field_has_error(user, :full_name)}", 
+                               id: "full_name-input",
+                               :'aria-describedby' => "full_name-help",
+                               placeholder: "Sir User the Third"
+    = render 'shared/field_errors', model: user, field_name: :full_name
+
+  div.form-group.w-100
+    = f.label :password, for: 'password-input'
+    = f.password_field :password, class: "form-control w-100 #{field_has_error(user, :password)}", 
+                                  id: "password-input",
+                                  :'aria-describedby' => "password-help",
+                                  placeholder: "********"
+    = render 'shared/field_errors', model: user, field_name: :password
+
+  div.form-group.w-100
+    = f.label :password_confirmation, for: 'password_confirmation-input'
+    = f.password_field :password_confirmation, class: "form-control w-100 #{field_has_error(user, :password_confirmation)}", 
+                                  id: "password_confirmation-input",
+                                  :'aria-describedby' => "password_confirmation-help",
+                                  placeholder: "********"
+    = render 'shared/field_errors', model: user, field_name: :password_confirmation
   
+  - if page == :new
+      div.w-100
+        span Have an account already?   
+        = link_to 'Sign In', sign_in_path
+      = f.submit 'Create Account', class: 'btn btn-primary submit-button',
+                                   style: 'margin-top: 0.5rem'
+  - elsif page == :edit
+      div.w-100
+        = f.submit 'Update Account', class: 'btn btn-primary submit-button',
+                                     style: 'margin-top: 0.5rem'
+        - if signed_in?
+          = link_to 'Delete Account', delete_account_path, method: :delete,
+                                                           class: 'btn btn-primary submit-button--red',
+                                                           style: 'margin-top: 0.5rem',
+                                                           data: { confirm: 'All your data will be lost. Are you sure?' }                          
+
+
+
+

@@ -1,7 +1,10 @@
 class Post < ApplicationRecord
   # relations
   belongs_to :user
-  has_many_attached :images
+  has_many_attached :images, dependent: :delete_all
+
+  # scopes
+  scope :by_created_at, ->(order) { Post.order(created_at: order)}
 
   # validations
   validates :user_id, presence: true

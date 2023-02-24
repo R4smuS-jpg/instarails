@@ -1,3 +1,7 @@
-h1 Edit Post
-
-= render 'posts/form', post: @post
+div.row.justify-content-center
+  h1 Update Post
+  div.w-100
+  = render 'posts/form', post: @post,
+                         url: @post,
+                         method: :patch,
+                         page: :edit
