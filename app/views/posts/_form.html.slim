@@ -1,14 +1,27 @@
-= form_with model: post do |f|
-  = render 'shared/error_messages', model: post
+= form_with url: url, model: post, class: 'form col-5' do |f|
 
-  p
-    = f.label :content
-    = f.text_field :content
+  div.form-group.w-100
+    = f.label :content, for: 'content-input'
+    = f.text_area :content, class: "form-control w-100 #{field_has_error(post, :content)}",
+                            id: "content-input",
+                            aria: { describedly: 'content-help' },
+                            placeholder: "My new cool post!"
+    = render 'shared/field_errors', model: post, field_name: :content
 
-  p
-    = f.label :images
+  div.form-group.w-100
+    = f.label :images, for: 'images-input'
     = f.file_field :images, multiple: true,
-                            accept: 'image/jpg,image/jpeg,image/png'
+                            accept: 'image/jpg,image/jpeg,image/png,image/gif',
+                            class: "form-control w-100 #{field_has_error(post, :images)}",
+                            id: "images-input",
+                            aria: { describedly: 'images-help' }
+    = render 'shared/field_errors', model: post, field_name: :images
 
-  p
-    = f.submit
+  - if page == :new
+      div.w-100
+        = f.submit 'Create Post', class: 'btn btn-primary submit-button',
+                                   style: 'margin-top: 0.5rem'
+  - elsif page == :edit
+      div.w-100
+        = f.submit 'Update Post', class: 'btn btn-primary submit-button',
+                                     style: 'margin-top: 0.5rem'

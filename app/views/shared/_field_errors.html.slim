@@ -1,0 +1,4 @@
+- unless model.errors[field_name].empty?
+  ul.errors-list
+    - model.errors[field_name].each do |e|
+      = content_tag(:li, e.capitalize)

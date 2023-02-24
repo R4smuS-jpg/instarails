@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-  before_action :authorize_session!, only: %i[new create destroy]
+  before_action :authorize_session!, only: %i[new
+                                              create
+                                              destroy]
 
   def new
   end
@@ -12,7 +14,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'You have successfully signed in'
       redirect_to user
     else
-      flash.now[:alert] = 'Incorrect email/password combination'
+      flash.now[:danger] = 'Incorrect email/password combination'
       render :new
     end
   end

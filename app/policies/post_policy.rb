@@ -22,10 +22,10 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    post.user == user
+    user.present?
   end
 
   def destroy?
-    post.user == user
+    user.present?
   end
 end

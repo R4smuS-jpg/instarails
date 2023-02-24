@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present?
+    true
   end
 
   def edit?
@@ -20,10 +20,14 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user == record
+    user.present?
+  end
+
+  def delete_avatar?
+    user.present?
   end
 
   def destroy?
-    update?
+    user.present?
   end
 end

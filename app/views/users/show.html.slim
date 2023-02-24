@@ -1,10 +1,26 @@
-h1 User Info
+div.row.justify-content-center.account-card
+  div.col-4
+    h1 Account Info
+    / user avatar
+    = render 'users/avatar', user: @user, side: 200, link: false
 
-= render @user
+    / user info
+    ul
+      li
+        b ID: 
+        = @user.id
+      li
+        b Email: 
+        = @user.email
+      li
+        b Nickname: 
+        = @user.nickname
+      li
+        b Full Name: 
+        = @user.full_name
 
-p
-= link_to 'Sign Out', sign_out_path, method: :delete
-p
-= link_to 'Delete User', @user, method: :delete
-p
-= link_to 'Edit User', edit_user_path(@user)
+  / user posts
+  div.col-8
+    h1 Your Posts
+    div.user-posts-wrap
+      = render 'posts/posts', posts_collection: @user_posts, avatar_link: false

@@ -1,3 +1,7 @@
-h1 New Post
-
-= render 'posts/form', post: @post
+div.row.justify-content-center
+  h1 Create New Post
+  div.w-100
+  = render 'posts/form', post: @post,
+                         url: create_post_path,
+                         method: :post,
+                         page: :new

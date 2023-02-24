@@ -1,21 +1,24 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  before_action :authorize_user!, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show]
+  before_action :authorize_user!, only: %i[show]
+  before_action :authorize_current_user!, only: %i[edit
+                                                   update
+                                                   destroy
+                                                   delete_avatar]
+
+  before_action :authorize_action!, only: %i[new
+                                             create]
   
   def index
-    @users = User.all
+    @users = User.by_created_at(:desc)
     authorize! @users
   end
 
   def new
-    authorize!
-
     @user = User.new
   end
 
   def create
-    authorize!
-
     @user = User.new(user_params)
 
     if @user.save
@@ -28,40 +31,67 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user_posts = @user.posts
   end
 
   def edit
   end
 
   def update
-    if @user.update(user_params)
+    if current_user.update(user_params)
       flash[:success] = 'You have successfully updated your account'
-      redirect_to @user
+      redirect_to current_user
     else
       render :edit
     end
   end
 
   def destroy
-    @user.destroy
+    current_user.destroy
     flash[:success] = 'You have successfully deleted your account'
     sign_out
     redirect_to root_path
   end
 
+  def delete_avatar
+    unless current_user.avatar.blank?
+      current_user.delete_avatar
+      flash[:success] = 'You have successfully deleted your avatar'
+      redirect_to current_user
+    else
+      # kostil' =)
+      flash[:success] = 'You have successfully deleted your avatar'
+      render :edit
+    end
+  end
+
   private
 
+  # should be called if action works with any user
   def set_user
     @user = User.find(params[:id])
   end
 
+  # should be called if policy of action needs a variable
   def authorize_user!
     authorize! @user
   end
 
+  # should be called if action works with current user
+  def authorize_current_user!
+    authorize! current_user
+  end
+
+  # should be called if action must be authenticated
+  # but does not have variable that policy needs to get
+  def authorize_action!
+    authorize!
+  end
+
   def user_params
     params.require(:user).permit(:email,
-                                 :nickname,
+                                 :nickname, 
+                                 :avatar,
                                  :full_name,
                                  :password,
                                  :password_confirmation)

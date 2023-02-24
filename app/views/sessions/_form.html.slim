@@ -1,9 +1,22 @@
-= form_with url: sign_in_path, scope: :session do |f|
-  p
-    = f.label :email
-    = f.email_field :email
-  p
-    = f.label :password
-    = f.password_field :password
-  p
-    = f.submit 'Submit'
+= form_with url: sign_in_path, scope: :session, class: 'form col-5' do |f|
+
+  div.form-group.w-100
+    = f.label :email, for: 'email-input'
+    = f.email_field :email, class: "form-control w-100", 
+                            id: "email-input",
+                            :'aria-describedby' => "emailHelp",
+                            placeholder: "example@gmail.com"
+
+  div.form-group.w-100
+    = f.label :password, for: 'password-input'
+    = f.password_field :password, class: "form-control w-100", 
+                                  id: "password-input",
+                                  :'aria-describedby' => "password-help",
+                                  placeholder: "********"
+
+  div.w-100
+    span Still don't have an account?   
+    = link_to 'Sign Up', sign_up_path
+
+  = f.submit 'Sign In', class: 'btn btn-primary submit-button',
+                               style: 'margin-top: 0.5rem'

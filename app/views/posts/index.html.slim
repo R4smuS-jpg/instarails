@@ -1,3 +1,6 @@
-h1 All Posts
-
-= render @posts
+div.row.justify-content-center
+  h1 All Posts
+  div.w-100
+  div.col-9
+    div.all-posts-wrap
+      = render 'posts/posts', posts_collection: @posts, avatar_link: true
