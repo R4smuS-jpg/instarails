@@ -21,8 +21,17 @@ div.row.justify-content-center.account-card
 
   / user posts
   div.col-8
-    h1 Your Posts
+    - if @user == current_user
+      h1 Your Posts
+    - else
+      h1 Posts
     div.user-posts-wrap
+      - if @user_posts.empty?
+        - if @user == current_user
+          h2[style='margin-top: 3rem'] You still don't have any post :( Try to create one!
+        - else
+          h2[style='margin-top: 3rem'] This user didn't post anything yet  
+
       - @user_posts.each_with_index do |post, index|
         = render 'posts/post', post: post,
                                post_index: index,
