@@ -12,6 +12,6 @@ module PostsHelper
   def post_with_avatar_link?(page)
     pages_with_avatar_link = [:all_posts, :post]
 
-    pages_with_username_link.include?(page)
+    pages_with_avatar_link.include?(page)
   end
 end
