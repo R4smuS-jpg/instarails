@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_posts = @user.posts
+    @user_posts = @user.posts.by_created_at(:desc)
   end
 
   def edit
