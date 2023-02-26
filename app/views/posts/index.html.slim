@@ -3,4 +3,8 @@ div.row.justify-content-center
   div.w-100
   div.col-9
     div.all-posts-wrap
-      = render 'posts/posts', posts_collection: @posts, avatar_link: true
+      - @posts.each_with_index do |post, index|
+        = render 'posts/post', post: post,
+                               post_index: index,
+                               avatar_link: true,
+                               page: :all_posts

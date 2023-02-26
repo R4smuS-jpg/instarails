@@ -23,4 +23,8 @@ div.row.justify-content-center.account-card
   div.col-8
     h1 Your Posts
     div.user-posts-wrap
-      = render 'posts/posts', posts_collection: @user_posts, avatar_link: false
+      - @user_posts.each_with_index do |post, index|
+        = render 'posts/post', post: post,
+                               post_index: index,
+                               avatar_link: false,
+                               page: :user_posts
