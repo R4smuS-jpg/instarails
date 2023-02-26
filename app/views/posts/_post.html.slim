@@ -1,5 +1,5 @@
 div.post-wrap
-  = render 'users/avatar', user: post.user, side: 50, link: avatar_link
+  = render 'users/avatar', user: post.user, side: 50, link: post_with_avatar_link?(page)
   - if post_with_username_link?(page)
     span.user-nickname = link_to post.user.nickname, post.user
   - else
