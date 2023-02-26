@@ -1,4 +1,6 @@
-= form_with url: url, model: post, class: 'form col-5' do |f|
+= form_with url: url,
+            model: post,
+            class: 'form col-5' do |f|
 
   div.form-group.w-100
     = f.label :content, for: 'content-input'
@@ -20,8 +22,8 @@
   - if page == :new
       div.w-100
         = f.submit 'Create Post', class: 'btn btn-primary submit-button',
-                                   style: 'margin-top: 0.5rem'
+                                  style: 'margin-top: 0.5rem'
   - elsif page == :edit
       div.w-100
         = f.submit 'Update Post', class: 'btn btn-primary submit-button',
-                                     style: 'margin-top: 0.5rem'
+                                  style: 'margin-top: 0.5rem'
