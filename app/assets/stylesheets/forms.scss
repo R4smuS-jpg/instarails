@@ -1,0 +1,54 @@
+@import 'colors';
+
+.errors-list {
+  margin-top: 10px;
+  padding-left: 0;
+
+  color: $error-red;
+  list-style-type: none;
+}
+// form
+.form {
+  & label {
+    font-size: 1.4rem;
+  }
+  & input {
+    font-size: 1.2rem;
+  }
+  & .submit-button--red {
+    font-size: 1.2rem;
+    float: right;
+  }
+  & small {
+    font-size: 1rem
+  }
+}
+
+.input-error {
+  border-color: $error-red !important;
+
+  &::placeholder {
+    color: $error-red !important;
+  }
+}
+
+.submit-button {
+  background-color: $mint-green !important;
+  border-color: $mint-green !important;
+
+  &:hover {
+    border-color: $hover-submit-button !important;
+    background-color: $hover-submit-button !important;
+  }
+}
+
+.submit-button--red {
+  background-color: $error-red !important;
+  border-color: $error-red !important;
+
+  &:hover {
+    background-color: $hover-delete-button !important;
+    border-color: $hover-delete-button !important;
+  }
+}
+

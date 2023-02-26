@@ -1,0 +1,16 @@
+@import 'colors';
+
+body {
+  background-color: $milk-white !important;
+  font-family: 'Josefin Sans', sans-serif !important;
+
+  padding-bottom: 50px; 
+
+  & label, h1 {
+    color: $soft-black !important;
+  }
+}
+
+.alert {
+  font-size: 1.2rem;
+}

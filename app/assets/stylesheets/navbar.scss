@@ -1,0 +1,43 @@
+@import 'colors';
+
+#navbar {
+  font-size: 1.5rem;
+  line-height: 3.2rem;
+
+  padding-top: 0.6rem;
+  margin-bottom: 1.5rem;
+
+  & a{
+    color: $milk-white;
+  }
+}
+
+.navbar-content-wrap {
+  padding: 0 13vw !important;
+}
+
+#coll-navbar {
+  & a {
+    &:hover {
+      text-decoration: underline;
+    } 
+  }
+}
+
+.dropdown-menu.show {
+  font-size: 1.3rem;
+  line-height: 1.2em;
+
+  & a {
+    color: $soft-black !important;
+  }
+}
+
+.bg-light-green {
+  background-color: $mint-green;
+}
+
+
+#logo {
+  font-size: 2.5rem;
+}
