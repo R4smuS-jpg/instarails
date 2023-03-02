@@ -5,7 +5,13 @@ class Post < ApplicationRecord
   has_many_attached :images, dependent: :delete_all
 
   # scopes
+  scope :with_user_with_avatar,
+    -> { includes(:user).merge(User.with_avatar) }
+  scope :with_images, -> { includes(images_attachments: :blob) }
+  scope :with_comments_with_user,
+    -> { includes(:comments).merge(Comment.with_user) }
   scope :by_created_at, ->(order) { order(created_at: order) }
+
 
   # validations
   validates :user_id, presence: true
@@ -14,7 +20,8 @@ class Post < ApplicationRecord
                      content_type: [:png, :jpg, :jpeg, :gif],
                      size: { less_than: 3.megabytes },
                      limit: { min: 1, max: 10 }
-
+  
+  # instance methods
   def created_at_formatted
     self.created_at.strftime("%d/%m/%Y at %H:%M")
   end

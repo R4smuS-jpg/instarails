@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
+  scope :with_avatar, -> { includes(avatar_attachment: :blob) }
 
   # callbacks
   before_save { self.email.downcase! }
