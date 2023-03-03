@@ -32,7 +32,6 @@ class UsersController < ApplicationController
 
   def show
     @posts = @user.posts.by_created_at(:desc)
-                        .with_user_with_attached_avatar
                         .with_attached_images
                         .with_comments_with_user
   end
