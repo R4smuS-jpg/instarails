@@ -14,6 +14,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.by_created_at(:desc)
+                 .with_user_with_attached_avatar
+                 .with_attached_images
+                 .with_comments_with_user
+
     authorize! @posts
   end
 
@@ -26,7 +30,7 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:success] = 'You have successfully created new post'
-      redirect_to posts_path
+      redirect_to @post
     else
       render :new
     end
@@ -57,7 +61,7 @@ class PostsController < ApplicationController
 
   # should be called if action works with any user's post
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.with_comments_with_user.find(params[:id])
   end
 
   # should be called if action works with current user's post
