@@ -5,7 +5,6 @@ class Comment < ApplicationRecord
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
-  scope :thumbnail, -> { by_created_at(:asc).limit(3) }
   scope :with_user, -> { includes(:user) }
 
   # validations
