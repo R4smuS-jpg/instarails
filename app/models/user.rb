@@ -3,12 +3,12 @@ class User < ApplicationRecord
 
   # relations
   has_many :posts, dependent: :delete_all
-  has_many :comments
+  has_many :comments, dependent: :delete_all
   has_one_attached :avatar, dependent: :destroy
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
-  scope :with_avatar, -> { includes(avatar_attachment: :blob) }
+  scope :with_attached_avatar, -> { includes(avatar_attachment: :blob) }
 
   # callbacks
   before_save { self.email.downcase! }
@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   validates :password_confirmation, presence: true, 
                                     length: { minimum: 8, maximum: 60 }
-
+  # instance methods
   def delete_avatar
     self.avatar.purge
   end
