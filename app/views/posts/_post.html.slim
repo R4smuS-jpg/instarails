@@ -95,6 +95,11 @@ div.post-wrap
                                                               data: { confirm: 'Are you sure?' },
                                                               class: 'manipulate-comment-link'
 
-  = render 'comments/form', url: post_comments_path(post),
-                            model: [post, Comment.new],
-                            page: :new
+  - if signed_in?
+    = render 'comments/form', url: post_comments_path(post),
+                              model: [post, Comment.new],
+                              page: :new
+  - else
+    p[style='font-size: 1.4rem; margin-top: 1rem']
+      = link_to 'Sign in', sign_in_path
+      |  to leave comments
