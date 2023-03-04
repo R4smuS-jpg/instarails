@@ -8,8 +8,8 @@ class Post < ApplicationRecord
   scope :with_user_with_attached_avatar,
     -> { includes(:user).merge(User.with_attached_avatar) }
   scope :with_attached_images, -> { includes(images_attachments: :blob) }
-  scope :with_comments_with_user,
-    -> { includes(:comments).merge(Comment.with_user) }  
+  scope :with_comments_with_user_with_attached_avatar,
+    -> { includes(:comments).merge(Comment.with_user_with_attached_avatar) }
 
   scope :by_created_at, ->(order) { order(created_at: order) }
 
