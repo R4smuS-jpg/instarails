@@ -5,11 +5,12 @@ class Comment < ApplicationRecord
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
-  scope :with_user, -> { includes(:user) }
+  scope :with_user_with_attached_avatar,
+    -> { includes(:user).merge(User.with_attached_avatar) }
 
   # validations
   validates :content, presence: true,
-                      length: { minimum: 1, maximum: 100 }
+                      length: { minimum: 1, maximum: 300 }
   validates :user_id, presence: true
   validates :post_id, presence: true
 end
