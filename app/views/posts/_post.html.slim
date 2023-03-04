@@ -89,7 +89,8 @@ div.post-wrap
             - if comment_belongs_to_current_user(c)
               br
               = link_to 'Edit', edit_post_comment_path(post, c), page: :edit,
-                                                                 style: 'margin-right: 0.5rem'
+                                                                 style: 'margin-right: 0.5rem',
+                                                                 class: 'manipulate-comment-link'
 
               = link_to 'Delete', post_comment_path(post, c), method: :delete,
                                                               data: { confirm: 'Are you sure?' },
