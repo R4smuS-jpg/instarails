@@ -21,6 +21,20 @@ div.row.justify-content-center.account-card
 
   / user posts
   div.col-8
-    h1 Your Posts
+    - if @user == current_user
+      h1[style='text-align: center;'] Your Posts
+    - else
+      h1[style='text-align: center;'] Posts
     div.user-posts-wrap
-      = render 'posts/posts', posts_collection: @user_posts, avatar_link: false
+      - if @posts.empty?
+        - if @user == current_user
+          span[style='margin-top:3rem;font-size: 1.7rem;'] You still don't have any post :( Try to
+          = link_to ' create one!', create_post_path, style: "font-size: 1.7rem;"
+        - else
+          span[style='margin-top:3rem; font-size: 1.7rem;'] This user didn't post anything yet  
+
+      - @posts.each_with_index do |post, index|
+        = render 'posts/post', post: post,
+                               post_index: index,
+                               avatar_link: false,
+                               page: :user_posts

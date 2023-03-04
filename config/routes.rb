@@ -27,6 +27,9 @@ Rails.application.routes.draw do
                              show
                              edit
                              update
-                             destroy]
+                             destroy] do
+    # comments
+    resources :comments, only: %i[edit create update destroy]
+  end
 
 end

@@ -5,7 +5,7 @@ module ErrorHandling
   included do
     include ActionPolicy
 
-    rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+    # rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
     rescue_from ActionPolicy::Unauthorized, with: :user_not_authorized
 
     private

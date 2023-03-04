@@ -1,11 +1,10 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show]
+  # before_action :set_post, only: %i[show]
   before_action :set_current_user_post, only: %i[edit
                                                  update
                                                  destroy]
 
-  before_action :authorize_post!, only: %i[show
-                                           edit
+  before_action :authorize_post!, only: %i[edit
                                            update
                                            destroy]
 
@@ -14,6 +13,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.by_created_at(:desc)
+                 .with_user_with_attached_avatar
+                 .with_attached_images
+                 .with_comments_with_user_with_attached_avatar
+
     authorize! @posts
   end
 
@@ -26,13 +29,15 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:success] = 'You have successfully created new post'
-      redirect_to posts_path
+      redirect_to @post
     else
       render :new
     end
   end
 
   def show
+    @post = Post.with_comments_with_user_with_attached_avatar.find(params[:id])
+    authorize! @post
   end
 
   def edit
@@ -56,9 +61,9 @@ class PostsController < ApplicationController
   private
 
   # should be called if action works with any user's post
-  def set_post
-    @post = Post.find(params[:id])
-  end
+  # def set_post
+  #   @post = Post.find(params[:id])
+  # end
 
   # should be called if action works with current user's post
   def set_current_user_post

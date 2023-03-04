@@ -1,4 +1,6 @@
-= form_with url: url, model: user, class: 'form col-5' do |f|
+= form_with url: url,
+            model: user,
+            class: 'form col-5' do |f|
 
   div.form-group.w-100
     = f.label :email, for: 'email-input'
@@ -23,11 +25,11 @@
                             aria: { describedly: 'avatar-help' }
     = render 'shared/field_errors', model: user, field_name: :avatar
 
-  - if signed_in? && !user.avatar.blank?
-    = link_to 'Delete Avatar', delete_avatar_path, method: :delete,
-                                                   data: { confirm: 'Are you sure?' },
-                                                   class: 'btn btn-primary submit-button--red',
-                                                   style: 'margin-bottom: 1rem;'
+    - if signed_in? && !user.avatar.blank?
+      = link_to 'Delete Avatar', delete_avatar_path, method: :delete,
+                                                     data: { confirm: 'Are you sure?' },
+                                                     class: 'btn btn-primary submit-button--red',
+                                                     style: 'margin-top: 1rem; float: none'
 
 
   div.form-group.w-100
