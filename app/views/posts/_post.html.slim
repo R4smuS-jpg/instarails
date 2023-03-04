@@ -95,6 +95,7 @@ div.post-wrap
               = link_to 'Delete', post_comment_path(post, c), method: :delete,
                                                               data: { confirm: 'Are you sure?' },
                                                               class: 'manipulate-comment-link'
+          hr
 
   - if signed_in?
     = render 'comments/form', url: post_comments_path(post),
