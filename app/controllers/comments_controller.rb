@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   include ActionView::RecordIdentifier
 
-  before_action :set_comment, only: %i[edit update destroy]
   before_action :set_post, only: %i[create edit update destroy]
+  before_action :set_comment, only: %i[edit update destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -22,7 +22,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update(comment_parmas)
+    if @comment.update(comment_params)
+      flash[:success] = 'You have successfully updated your comment'
       redirect_to @post
     else
       flash[:danger] = @comment.errors
@@ -35,13 +36,14 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy  
+    flash[:success] = 'You have successfully deleted your comment'
     redirect_to @post
   end
 
   private
 
   def set_comment
-    @comment = Post.find(params[:post_id]).comments.find(params[:id])
+    @comment = @post.comments.find(params[:id])
   end
 
   def set_post
