@@ -1,0 +1,6 @@
+div.row.justify-content-center
+  h1 Edit Comment
+  div.w-100
+    = render 'comments/form', url: post_comment_path(@post, @comment),
+                              model: [@post, @comment],
+                              page: :edit

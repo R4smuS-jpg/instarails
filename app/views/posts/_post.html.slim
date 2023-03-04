@@ -49,4 +49,52 @@ div.post-wrap
                                 data-slide='next']
           span.carousel-control-next-icon[area-hidden='true']     
           span.sr-only Next
-  span.created-at = post.created_at_formatted
+  div.w-100
+  div.post-content
+    p = post.content
+    hr
+    div.created-at
+      b = post.created_at_formatted
+  - if post.comments.any?
+    div.comments-section
+      - if page == :all_posts || page == :user_posts
+        - if post.comments.count > 3
+          p = link_to "All comments(#{post.comments.count})", post, class: 'manipulate-comment-link'
+        - post.comments.sort_by(&:created_at).last(3).each do |c|
+          div.comment
+            = render 'users/avatar', user: c.user, side: 40,   link: true
+            span.comment-user-nickname 
+              = link_to c.user.nickname, c.user
+              | : 
+              = c.content
+            - if comment_belongs_to_current_user(c)
+              br
+              = link_to 'Edit', edit_post_comment_path(post, c), page: :edit,
+                                                                 class: 'manipulate-comment-link',
+                                                                 style: 'margin-right: 0.5rem'
+
+              = link_to 'Delete', post_comment_path(post, c), method: :delete,
+                                                              data: { confirm: 'Are you sure?' },
+                                                              class: 'manipulate-comment-link'
+          hr    
+
+      - elsif page == :post
+        - post.comments.sort_by(&:created_at).each do |c|
+          div.comment
+            = render 'users/avatar', user: c.user, side: 40,   link: true
+            span.comment-user-nickname 
+              = link_to c.user.nickname, c.user
+              | : 
+              = c.content
+            - if comment_belongs_to_current_user(c)
+              br
+              = link_to 'Edit', edit_post_comment_path(post, c), page: :edit,
+                                                                 style: 'margin-right: 0.5rem'
+
+              = link_to 'Delete', post_comment_path(post, c), method: :delete,
+                                                              data: { confirm: 'Are you sure?' },
+                                                              class: 'manipulate-comment-link'
+
+  = render 'comments/form', url: post_comments_path(post),
+                            model: [post, Comment.new],
+                            page: :new

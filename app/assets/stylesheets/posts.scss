@@ -1,5 +1,16 @@
 @import 'colors';
 
+.post-content {
+  border: 0.3rem solid $mint-green;
+  border-radius: 25px;
+  margin-top: 2rem;
+  padding: 1rem 1rem;
+  // min-height: 
+  & p {
+    max-width: 100%
+  }
+}
+
 .post-wrap {
   padding-top: 1.3rem;
   padding-bottom: 1.5rem;
@@ -21,6 +32,11 @@
     }
   }
 
+
+  & .post-content {
+    font-size: 1.3rem;
+  }
+
   & .avatar {
     margin-top: 0;
     margin-bottom: 0.8rem;
@@ -37,8 +53,8 @@
 
   & .created-at {
     margin-top: 1rem;
-    font-size: 1.3rem;
-    float: right;
+    font-size: 1.2rem;
+    // float: right;
   }
 
   & .user-link {
@@ -67,6 +83,10 @@
       font-size: 1.5rem;
     }
 
+    & .post-content {
+      font-size: 1.1rem;
+    }
+
     & .avatar {
       margin-top: 0;
       margin-bottom: 0.8rem;
@@ -83,7 +103,7 @@
 
     & .created-at {
       margin-top: 1rem;
-      float: right;
+      // float: right;
     }
 
     & .user-link {
@@ -116,6 +136,11 @@
       }
     }
 
+
+    & .post-content {
+      font-size: 1.3rem;
+    }
+
     & .avatar {
       margin-top: 0;
       margin-bottom: 0.8rem;
@@ -132,7 +157,7 @@
 
     & .created-at {
       margin-top: 1rem;
-      float: right;
+      // float: right;
     }
 
     & .user-link {

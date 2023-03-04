@@ -1,0 +1,20 @@
+= form_with url: url,
+            model: model,
+            class: 'form comment-form' do |f|
+
+  div.form-group.w-100
+    - if page == :new
+      = f.label 'New Comment', for: 'content-input'
+    - elsif page == :edit
+      = f.label 'Update Comment', for: 'content-input'
+
+    = f.text_area :content, class: "form-control w-100",
+                            id: "content-input",
+                            aria: { describedly: 'content-help' },
+                            placeholder: "Such a cool post!"
+  
+
+  - if page == :new
+    = f.submit 'Submit', class: 'btn btn-primary submit-button'
+  - elsif page == :edit
+    = f.submit 'Update Comment', class: 'btn btn-primary submit-button'
