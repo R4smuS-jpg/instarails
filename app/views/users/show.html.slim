@@ -26,6 +26,7 @@ div.row.justify-content-center.account-card
     - else
       h1[style='text-align: center;'] Posts
     div.user-posts-wrap
+      == pagy_bootstrap_nav(@pagy)
       - if @posts.empty?
         - if @user == current_user
           span[style='margin-top:3rem;font-size: 1.7rem;'] You still don't have any post :( Try to
@@ -38,3 +39,4 @@ div.row.justify-content-center.account-card
                                post_index: index,
                                avatar_link: false,
                                page: :user_posts
+      == pagy_bootstrap_nav(@pagy)                         
