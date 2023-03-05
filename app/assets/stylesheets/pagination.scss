@@ -1,0 +1,32 @@
+@import 'colors';
+
+.pagy-bootstrap-nav {
+  & .pagination {
+    justify-content: center;
+
+    & li.page-item {
+      a.page-link {
+        background-color: $mint-green;
+        // border-color: $mint-green;
+        color: $milk-white;
+        &:hover {
+          background-color: $hover-submit-button
+        }
+      }
+
+    }
+
+    & li.page-item.active {
+      a.page-link {
+        border-color: $milk-white;
+        background-color: $hover-submit-button
+      }
+    }
+
+    & li.page-item.disabled {
+      a.page-link {
+        background-color: grey;
+      }
+    }
+  }
+}
