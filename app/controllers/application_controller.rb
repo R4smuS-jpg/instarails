@@ -4,4 +4,7 @@ class ApplicationController < ActionController::Base
   # concerns
   include Authentication
   include ErrorHandling
+
+  # pagy gem
+  include Pagy::Backend
 end

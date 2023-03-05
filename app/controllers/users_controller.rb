@@ -10,7 +10,7 @@ class UsersController < ApplicationController
                                              create]
 
   def index
-    @users = User.by_created_at(:desc)
+    @pagy, @users = pagy(User.by_created_at(:desc))
     authorize! @users
   end
 
@@ -31,9 +31,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts.by_created_at(:desc)
-                        .with_attached_images
-                        .with_comments_with_user_with_attached_avatar
+    @pagy, @posts = pagy(@user.posts.by_created_at(:desc)
+                                .with_attached_images
+                                .with_comments_with_user_with_attached_avatar)
   end
 
   def edit
