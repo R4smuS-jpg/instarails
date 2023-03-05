@@ -12,10 +12,10 @@ class PostsController < ApplicationController
                                              create]
 
   def index
-    @posts = Post.by_created_at(:desc)
-                 .with_user_with_attached_avatar
-                 .with_attached_images
-                 .with_comments_with_user_with_attached_avatar
+    @pagy, @posts = pagy(Post.by_created_at(:desc)
+                             .with_user_with_attached_avatar
+                             .with_attached_images
+                             .with_comments_with_user_with_attached_avatar)
 
     authorize! @posts
   end
