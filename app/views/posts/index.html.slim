@@ -3,6 +3,7 @@ div.row.justify-content-center
   div.w-100
   div.col-9
     div.all-posts-wrap
+      == pagy_bootstrap_nav(@pagy)
       - @posts.each_with_index do |post, index|
         = render 'posts/post', post: post,
                                post_index: index,
