@@ -10,7 +10,7 @@ class UsersController < ApplicationController
                                              create]
 
   def index
-    @users = User.by_created_at(:desc)
+    @pagy, @users = pagy(User.by_created_at(:desc))
     authorize! @users
   end
 
