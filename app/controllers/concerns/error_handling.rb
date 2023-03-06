@@ -5,30 +5,37 @@ module ErrorHandling
   included do
     include ActionPolicy
 
-    # rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
-    rescue_from ActionPolicy::Unauthorized, with: :user_not_authorized
+    rescue_from ActionPolicy::Unauthorized, with: :not_authorized
+    rescue_from ActiveRecord::RecordNotFound, with: :notfound
+    # does not work for some reason =/
+    # rescue_from ActionController::RoutingError, with: :notfound
 
     private
 
-    def page_not_found
+    def notfound
       render file: 'public/404.html', status: :not_found, layout: false
     end
 
-    def user_not_authorized
-      case request.path
-      when '/sign-in'
-        flash[:success] = "You are signed in already"
-        redirect_to current_user
-      when '/sign-up'
-        flash[:success] = "You are signed in already"
-        redirect_to current_user
-      when '/edit-account'
-        flash[:danger] = "You must be signed in to perform this action"
-        redirect_to current_user
-      when '/delete-account'
-        flash[:danger] = "You must be signed in to perform this action"
-        redirect_to current_user
+    def not_authorized
+      path = request.path
+      sign_out_required_paths = %w[/sign-in sign-up]
+
+      if sign_out_required_paths.include?(path)
+        handle_sign_out_required
+      else
+        handler_not_authorized
       end
+    end
+
+    # user not authorized handlers
+    def handle_sign_out_required
+      flash[:success] = "You are signed in already"
+      redirect_to current_user
+    end
+
+    def handler_not_authorized
+      flash[:danger] = 'You are not allowed to perform this action'
+      redirect_to root_path
     end
   end
 end

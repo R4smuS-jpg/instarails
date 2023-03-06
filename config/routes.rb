@@ -31,5 +31,4 @@ Rails.application.routes.draw do
     # comments
     resources :comments, only: %i[edit create update destroy]
   end
-
 end
