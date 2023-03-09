@@ -26,17 +26,19 @@ div.row.justify-content-center.account-card
     - else
       h1[style='text-align: center;'] Posts
     div.user-posts-wrap
-      == pagy_bootstrap_nav(@pagy)
-      - if @posts.empty?
+      - if @posts.any?
+        == pagy_bootstrap_nav(@pagy)
+      - else
         - if @user == current_user
           span[style='margin-top:3rem;font-size: 1.7rem;'] You still don't have any post :( Try to
           = link_to ' create one!', create_post_path, style: "font-size: 1.7rem;"
         - else
-          span[style='margin-top:3rem; font-size: 1.7rem;'] This user didn't post anything yet  
+          span[style='margin-top:3rem; font-size: 1.7rem;'] This user didn't post anything yet      
 
       - @posts.each_with_index do |post, index|
         = render 'posts/post', post: post,
                                post_index: index,
                                avatar_link: false,
                                page: :user_posts
-      == pagy_bootstrap_nav(@pagy)                         
+      - if @posts.any?
+        == pagy_bootstrap_nav(@pagy)                         

@@ -7,6 +7,7 @@ module ErrorHandling
 
     rescue_from ActionPolicy::Unauthorized, with: :not_authorized
     rescue_from ActiveRecord::RecordNotFound, with: :notfound
+    rescue_from Pagy::OverflowError, with: :notfound
     # does not work for some reason =/
     # rescue_from ActionController::RoutingError, with: :notfound
 
@@ -18,7 +19,7 @@ module ErrorHandling
 
     def not_authorized
       path = request.path
-      sign_out_required_paths = %w[/sign-in sign-up]
+      sign_out_required_paths = %w[/sign-in /sign-up]
 
       if sign_out_required_paths.include?(path)
         handle_sign_out_required
