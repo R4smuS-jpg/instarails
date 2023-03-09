@@ -3,21 +3,7 @@ div.row.justify-content-center
   div.w-100
   div.col-9
     == pagy_bootstrap_nav(@pagy)
-    - @users.each do |u|
-      div.user-wrap.row
-        div.col-4
-          = render 'users/avatar', user: u, side: 200, link: true
-          = link_to 'Follow', '#', class: 'btn btn-primary submit-button'  
-        div.col-7
-          ul.list-group
-            li.list-group-item 
-              b Email: 
-              = u.email
-            li.list-group-item 
-              b Nickname: 
-              = u.nickname
-            li.list-group-item 
-              b Full Name: 
-              = u.full_name
+    - @users.each do |user|
+      = render user
     == pagy_bootstrap_nav(@pagy)          
 
