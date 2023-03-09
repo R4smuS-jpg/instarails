@@ -5,6 +5,17 @@ class User < ApplicationRecord
   has_many :posts, dependent: :delete_all
   has_many :comments, dependent: :delete_all
   has_one_attached :avatar, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+  has_many :followings, through: :active_relationships,
+                        source: :followed
+
+  has_many :passive_relationships, class_name: "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent: :destroy
+  has_many :followers, through: :passive_relationships,
+                       source: :follower
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
@@ -41,5 +52,17 @@ class User < ApplicationRecord
   # instance methods
   def delete_avatar
     self.avatar.purge
+  end
+
+  def follow(other_user)
+    self.followings << user
+  end
+
+  def unfollow(other_user)
+    self.followings.delete(other_user)
+  end
+
+  def following?(other_user)
+    self.followings.include?(other_user)
   end
 end
