@@ -11,8 +11,7 @@ Rails.application.routes.draw do
 
   delete '/delete-avatar', to: 'users#delete_avatar'
   delete '/delete-account', to: 'users#destroy'
-  resources :users, only: %i[index
-                             show]
+  resources :users, only: %i[index show]
 
   # sessions
   get '/sign-in', to: 'sessions#new'
@@ -31,4 +30,8 @@ Rails.application.routes.draw do
     # comments
     resources :comments, only: %i[edit create update destroy]
   end
+
+  # followings
+  post '/follow/:id', to: 'followings#create', as: 'follow_user'
+  delete '/unfollow/:id', to: 'followings#destroy', as: 'unfollow_user'
 end
