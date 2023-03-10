@@ -31,9 +31,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @pagy, @posts = pagy(@user.posts.by_created_at(:desc)
+    @pagy, @posts = pagy(@user.posts
                                 .with_attached_images
-                                .with_comments_with_user_with_attached_avatar)
+                                .with_comments_with_user_with_attached_avatar
+                                .by_created_at(:desc))
   end
 
   def edit
