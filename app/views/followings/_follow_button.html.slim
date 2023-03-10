@@ -1,0 +1,5 @@
+= form_with url: follow_user_path(user),
+            method: :post do |f|
+
+  = f.submit "Follow", class: 'btn btn-primary follow-button',
+                       style: 'margin-top: 1rem;'

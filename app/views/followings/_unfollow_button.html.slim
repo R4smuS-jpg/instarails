@@ -1,0 +1,5 @@
+= form_with url: unfollow_user_path(user),
+            method: :delete do |f|
+
+  = f.submit "Unfollow", class: 'btn btn-primary unfollow-button',
+                         style: 'margin-top: 1rem;'
