@@ -21,6 +21,14 @@
     border: 0.3rem solid $mint-green;
     border-radius: 50px;
   }
+
+  .follow-button {
+    margin-bottom: 1rem;
+  }
+
+  .unfollow-button {
+    margin-bottom: 1rem;
+  }
 }
 
 .user-wrap {
@@ -35,6 +43,7 @@
   & .avatar {
     border: 0.3rem solid $mint-green;
     border-radius: 50px;
+    margin-bottom: 1rem;
   }
 
   & .col-7 {
