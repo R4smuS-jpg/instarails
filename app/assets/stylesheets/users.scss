@@ -29,6 +29,15 @@
   .unfollow-button {
     margin-bottom: 1rem;
   }
+
+  .bio {
+    border: 0.2rem solid $mint-green;
+    border-radius: 10px;
+    padding: 0.1rem 0.5rem;
+    & * {
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .user-wrap {

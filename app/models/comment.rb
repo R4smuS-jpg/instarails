@@ -10,7 +10,7 @@ class Comment < ApplicationRecord
 
   # validations
   validates :content, presence: true,
-                      length: { minimum: 1, maximum: 300 }
+                      length: { in: 1..300 }
   validates :user_id, presence: true
   validates :post_id, presence: true
 end

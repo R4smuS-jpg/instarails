@@ -29,26 +29,27 @@ class User < ApplicationRecord
 
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
-                    length: { minimum: 5, maximum: 40 },
+                    length: { in: 5..40},
                     uniqueness: true
 
   validates :nickname, presence: true,
-                       length: { minimum: 3, maximum: 40 },
+                       length: { in: 3..40 },
                        uniqueness: true
+  validates :biography, length: { in: 1..300 }
 
   validates :avatar, content_type: [:png, :jpg, :jpeg, :gif],
                      size: { less_than: 5.megabytes },
                      limit: { max: 1 }
 
   validates :full_name, presence: true,
-                        length: { minimum: 3, maximum: 50 }
+                        length: { in: 3..50 }
 
   # presence validation for password is not necessary
   # because has_secure_password automatically adds it
-  validates :password, length: { minimum: 8, maximum: 60 }
+  validates :password, length: { in: 8..60 }
 
   validates :password_confirmation, presence: true, 
-                                    length: { minimum: 8, maximum: 60 }
+                                    length: { in: 8..60 }
   # instance methods
   def delete_avatar
     self.avatar.purge

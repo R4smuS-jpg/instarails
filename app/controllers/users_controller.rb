@@ -54,6 +54,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    byebug
     if current_user.update(user_params)
       flash[:success] = 'You have successfully updated your account'
       redirect_to current_user
@@ -106,7 +107,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email,
-                                 :nickname, 
+                                 :nickname,
+                                 :biography,
                                  :avatar,
                                  :full_name,
                                  :password,

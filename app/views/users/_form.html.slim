@@ -17,6 +17,13 @@
                               aria: { describedly: 'nickname-help' },
                               placeholder: "username123"
     = render 'shared/field_errors', model: user, field_name: :nickname
+  div.form-group.w-100
+    = f.label :biography, for: 'biography-input'
+    = f.text_area :biography, class: "form-control w-100 #{field_has_error(user, :biography)}", 
+                              id: "biography-input",
+                              aria: { describedly: 'biography-help' },
+                              placeholder: "I am a new user :)"
+    = render 'shared/field_errors', model: user, field_name: :biography
 
   div.form-group.w-100
     = f.label :avatar, for: 'avatar-input'
