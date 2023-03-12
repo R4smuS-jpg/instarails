@@ -3,6 +3,14 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
+  def followings?
+    user.present?
+  end
+
+  def followers?
+    user.present?
+  end
+
   def feed?
     user.present?
   end
