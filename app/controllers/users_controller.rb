@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
-  before_action :authorize_user!, only: %i[show]
+  before_action :set_user, only: %i[show followers followings]
+  before_action :authorize_user!, only: %i[show followers followings]
   before_action :authorize_current_user!, only: %i[edit
                                                    update
                                                    destroy
@@ -13,6 +13,14 @@ class UsersController < ApplicationController
   def index
     @pagy, @users = pagy(User.where("id != #{current_user.id}").by_created_at(:desc))
     authorize! @users
+  end
+
+  def followings
+    @pagy, @users = pagy(@user.followings)
+  end
+
+  def followers
+    @pagy, @users = pagy(@user.followers)
   end
 
   def feed
