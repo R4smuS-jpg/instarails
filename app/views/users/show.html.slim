@@ -4,11 +4,18 @@ div.row.justify-content-center.account-card
     / user avatar
     = render 'users/avatar', user: @user, side: 200, link: false
 
+    / follow/unfollow button
     - if @user != current_user
       - if current_user.following?(@user)
         = render 'followings/unfollow_button', user: @user
       - else
         = render 'followings/follow_button', user: @user
+
+    / followers and followings
+    p
+      = link_to "Followings: #{@user.followings.count}", followings_user_path(@user), class: 'followings-link'
+      br
+      = link_to "Followers: #{@user.followers.count}", followers_user_path(@user), class: 'followers-link'
 
     / user info
     ul

@@ -25,3 +25,19 @@
     color: $milk-white !important;
   }
 }
+
+.followings-link {
+  color: $mint-green;
+  font-size: 1.3rem;
+  &:hover {
+    color: $mint-green
+  }
+}
+
+.followers-link { 
+  color: $mint-green;
+  font-size: 1.3rem;
+  &:hover {
+    color: $mint-green
+  }
+}
