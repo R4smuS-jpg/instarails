@@ -5,7 +5,7 @@ div.post-wrap
   - else
     span.user-nickname[style='font-size: 1.6rem'] = post.user.nickname
 
-  - if signed_in? && post_belongs_to_current_user(post)
+  - if signed_in? && post_belongs_to_current_user?(post)
     = link_to 'Delete', post, method: :delete,
                               class: 'btn btn-primary submit-button--red',
                               style: 'float: right; font-size: 1.2rem; margin-left: 1rem;',
@@ -67,7 +67,7 @@ div.post-wrap
               = link_to c.user.nickname, c.user
               | : 
               = c.content
-            - if comment_belongs_to_current_user(c)
+            - if comment_belongs_to_current_user?(c)
               br
               = link_to 'Edit', edit_post_comment_path(post, c), page: :edit,
                                                                  class: 'manipulate-comment-link',
@@ -86,7 +86,7 @@ div.post-wrap
               = link_to c.user.nickname, c.user
               | : 
               = c.content
-            - if comment_belongs_to_current_user(c)
+            - if comment_belongs_to_current_user?(c)
               br
               = link_to 'Edit', edit_post_comment_path(post, c), page: :edit,
                                                                  style: 'margin-right: 0.5rem',

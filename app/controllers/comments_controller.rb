@@ -1,8 +1,7 @@
 class CommentsController < ApplicationController
-  include ActionView::RecordIdentifier
-
   before_action :set_post, only: %i[create edit update destroy]
   before_action :set_comment, only: %i[edit update destroy]
+  before_action :authorize_comment!, only: %i[edit update destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -48,6 +47,10 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
+  end
+
+  def authorize_comment!
+    authorize! @comment
   end
 
   def comment_params

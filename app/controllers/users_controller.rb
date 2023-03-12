@@ -1,17 +1,30 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
-  before_action :authorize_user!, only: %i[show]
+  before_action :set_user, only: %i[show followers followings]
+  before_action :authorize_user!, only: %i[show followers followings]
   before_action :authorize_current_user!, only: %i[edit
                                                    update
                                                    destroy
                                                    delete_avatar]
 
   before_action :authorize_action!, only: %i[new
-                                             create]
+                                             create
+                                             feed]
 
   def index
-    @pagy, @users = pagy(User.by_created_at(:desc))
+    @pagy, @users = pagy(User.where("id != #{current_user.id}").by_created_at(:desc))
     authorize! @users
+  end
+
+  def followings
+    @pagy, @users = pagy(@user.followings)
+  end
+
+  def followers
+    @pagy, @users = pagy(@user.followers)
+  end
+
+  def feed
+    @pagy, @posts = pagy(current_user.feed)
   end
 
   def new
@@ -31,9 +44,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @pagy, @posts = pagy(@user.posts.by_created_at(:desc)
+    @pagy, @posts = pagy(@user.posts
                                 .with_attached_images
-                                .with_comments_with_user_with_attached_avatar)
+                                .with_comments_with_user_with_attached_avatar
+                                .by_created_at(:desc))
   end
 
   def edit
@@ -87,7 +101,7 @@ class UsersController < ApplicationController
   # should be called if action must be authenticated
   # but does not have variable that policy needs to get
   def authorize_action!
-    authorize!
+    authorize! with: UserPolicy
   end
 
   def user_params

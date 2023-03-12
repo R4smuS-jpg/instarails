@@ -1,0 +1,43 @@
+@import 'colors';
+
+.follow-button {
+  border-color: $mint-green !important;
+  background-color: $mint-green !important;
+  font-size: 1.2rem !important;
+  padding: 0.3rem 4.6rem !important;
+
+  &:hover {
+    border-color: $hover-submit-button !important;
+    background-color: $hover-submit-button !important;
+  }
+}
+
+.unfollow-button {
+  border-color: $mint-green !important;
+  background-color: $milk-white !important;
+  font-size: 1.2rem !important;
+  padding: 0.3rem 4rem !important;
+  color: $mint-green !important;
+
+  &:hover {
+    border-color: $hover-submit-button !important;
+    background-color: $hover-submit-button !important;
+    color: $milk-white !important;
+  }
+}
+
+.followings-link {
+  color: $mint-green;
+  font-size: 1.3rem;
+  &:hover {
+    color: $mint-green
+  }
+}
+
+.followers-link { 
+  color: $mint-green;
+  font-size: 1.3rem;
+  &:hover {
+    color: $mint-green
+  }
+}
