@@ -7,11 +7,16 @@ class UsersController < ApplicationController
                                                    delete_avatar]
 
   before_action :authorize_action!, only: %i[new
-                                             create]
+                                             create
+                                             feed]
 
   def index
     @pagy, @users = pagy(User.by_created_at(:desc))
     authorize! @users
+  end
+
+  def feed
+    @pagy, @posts = pagy(current_user.feed)
   end
 
   def new
@@ -88,7 +93,7 @@ class UsersController < ApplicationController
   # should be called if action must be authenticated
   # but does not have variable that policy needs to get
   def authorize_action!
-    authorize!
+    authorize! with: UserPolicy
   end
 
   def user_params

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   delete '/delete-avatar', to: 'users#delete_avatar'
   delete '/delete-account', to: 'users#destroy'
+
+  get '/feed', to: 'users#feed'
   resources :users, only: %i[index show]
 
   # sessions

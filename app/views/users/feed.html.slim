@@ -1,0 +1,19 @@
+div.row.justify-content-center
+  - if @posts.any?
+    h1 Feed
+  - else
+    h1 Feed
+    div.w-100
+    h2[style='margin-top: 1rem;'] Your feed is empty :(
+  div.w-100
+  div.col-9
+    div.all-posts-wrap
+      - if @posts.any?
+        == pagy_bootstrap_nav(@pagy)
+      - @posts.each_with_index do |post, index|
+        = render 'posts/post', post: post,
+                               post_index: index,
+                               avatar_link: true,
+                               page: :all_posts
+      - if @posts.any?
+        == pagy_bootstrap_nav(@pagy)                         

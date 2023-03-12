@@ -65,4 +65,10 @@ class User < ApplicationRecord
   def following?(other_user)
     self.followings.include?(other_user)
   end
+
+  def feed
+    Post.with_comments_with_user_with_attached_avatar
+        .where(user_id: self.followings.ids)
+        .by_created_at(:desc)
+  end
 end

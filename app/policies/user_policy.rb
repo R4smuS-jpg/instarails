@@ -3,6 +3,10 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
+  def feed?
+    user.present?
+  end
+
   def new?
     create?
   end
