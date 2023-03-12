@@ -4,10 +4,11 @@ div.row.justify-content-center.account-card
     / user avatar
     = render 'users/avatar', user: @user, side: 200, link: false
 
-    - if current_user.following?(@user)
-      = render 'followings/unfollow_button', user: @user
-    - else
-      = render 'followings/follow_button', user: @user
+    - if @user != current_user
+      - if current_user.following?(@user)
+        = render 'followings/unfollow_button', user: @user
+      - else
+        = render 'followings/follow_button', user: @user
 
     / user info
     ul
