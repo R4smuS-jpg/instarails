@@ -67,7 +67,8 @@ class User < ApplicationRecord
   end
 
   def feed
-    Post.with_comments_with_user_with_attached_avatar
+    Post.with_user_with_attached_avatar
+        .with_comments_with_user_with_attached_avatar
         .where(user_id: self.followings.ids)
         .by_created_at(:desc)
   end
