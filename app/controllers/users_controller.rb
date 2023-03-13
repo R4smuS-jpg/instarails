@@ -11,8 +11,7 @@ class UsersController < ApplicationController
                                              feed]
 
   def index
-    @pagy, @users = pagy(User.where("id != #{current_user.id}")
-                             .with_attached_avatar
+    @pagy, @users = pagy(User.with_attached_avatar
                              .by_created_at(:desc))
     authorize! @users
   end

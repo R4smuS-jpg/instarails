@@ -1,10 +1,11 @@
 div.user-wrap.row
   div.col-4
     = render 'users/avatar', user: user, side: 200, link: true
-    - if current_user.following?(user)
-      = render 'followings/unfollow_button', user: user
-    - else
-      = render 'followings/follow_button', user: user
+    - unless user == current_user
+      - if current_user.following?(user)
+        = render 'followings/unfollow_button', user: user
+      - else
+        = render 'followings/follow_button', user: user
   div.col-7
     ul.list-group
       li.list-group-item 
