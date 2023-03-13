@@ -7,6 +7,7 @@
   background-color: $mint-green !important;
   font-size: 1.1rem !important;
   padding: 0.3rem !important;
+  margin-bottom: 0.3rem;
 
   &:hover {
     border-color: $hover-submit-button !important;
@@ -19,12 +20,23 @@
   & p {
     font-size: 1.2rem;
   }
+
+  & a {
+    font-size: 1.2rem;
+    color: $mint-green;
+
+    &:hover {
+      color: $mint-green;
+    }
+  }
+
 }
 
 .unlike-button {
   width: 4rem;
   height: 2.3rem;
   padding: 0.3rem !important;
+  margin-bottom: 0.3rem;
   border-color: $mint-green !important;
   background-color: $milk-white !important;
   font-size: 1.1rem !important;

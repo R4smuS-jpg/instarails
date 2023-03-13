@@ -39,4 +39,8 @@ class Post < ApplicationRecord
   def unlike_by(user)
     self.likes.delete(Like.find_by(user_id: user.id))
   end
+
+  def liked_users
+    User.where(id: self.likes.pluck(:user_id))
+  end
 end

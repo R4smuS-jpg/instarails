@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     # post likes
     post '/like', to: 'likes#create'
     delete '/unlike', to: 'likes#destroy'
+    get '/likes', to: 'posts#likes'
   end
 
   # followings

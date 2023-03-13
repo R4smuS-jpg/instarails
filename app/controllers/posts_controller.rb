@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  # before_action :set_post, only: %i[show]
   before_action :set_current_user_post, only: %i[edit
                                                  update
                                                  destroy]
@@ -19,6 +18,12 @@ class PostsController < ApplicationController
                              .by_created_at(:desc))
 
     authorize! @posts
+  end
+
+  def likes
+    @post = Post.find(params[:post_id])
+
+    @pagy, @users = pagy(@post.liked_users.with_attached_avatar)
   end
 
   def new
