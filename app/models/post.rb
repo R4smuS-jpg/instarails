@@ -30,4 +30,13 @@ class Post < ApplicationRecord
   def liked_by_user?(user)
     self.likes.find_by(user_id: user.id)
   end
+
+  def like_by(user)
+    self.likes << Like.new(post_id: self.id,
+                           user_id: user.id)
+  end
+
+  def unlike_by(user)
+    self.likes.delete(Like.find_by(user_id: user.id))
+  end
 end

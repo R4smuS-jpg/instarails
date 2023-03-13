@@ -9,15 +9,16 @@ class LikesController < ApplicationController
   def create
     authorize!
 
-    @like = @post.likes.new(post_id: @post.id,
-                            user_id: current_user.id)
-    @like.save
+    @post.like_by(current_user)
+
     redirect_to @post
   end
 
   def destroy
-    authorize! @like
-    @like.destroy
+    authorize!
+
+    @post.unlike_by(current_user)
+
     redirect_to @post
   end
 
