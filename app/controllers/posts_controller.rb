@@ -7,7 +7,8 @@ class PostsController < ApplicationController
                                            update
                                            destroy]
 
-  before_action :authorize_action!, only: %i[new
+  before_action :authorize_action!, only: %i[likes
+                                             new
                                              create]
 
   def index
