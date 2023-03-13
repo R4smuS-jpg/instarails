@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   def show
     @pagy, @posts = pagy(@user.posts
                                 .with_attached_images
+                                .with_likes
                                 .with_comments_with_user_with_attached_avatar
                                 .by_created_at(:desc))
   end
