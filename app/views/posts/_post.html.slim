@@ -50,6 +50,14 @@ div.post-wrap
           span.carousel-control-next-icon[area-hidden='true']     
           span.sr-only Next
   div.w-100
+  div.likes-section
+    - unless post.liked_by_user?(current_user)
+      = button_to 'Like', post_like_path(post), class: 'btn btn-primary like-button'
+    - else
+      = button_to 'Unlike', post_unlike_path(post), method: :delete,
+                                                    class: 'btn btn-primary unlike-button'
+    = content_tag(:p, "Likes: #{post.likes.count}")
+
   div.post-content
     p = post.content
     hr
