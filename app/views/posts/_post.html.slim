@@ -51,14 +51,14 @@ div.post-wrap
           span.sr-only Next
   div.w-100
   div.likes-section
-    - unless post.liked_by_user?(current_user)
-      = button_to 'Like', post_like_path(post), class: 'btn btn-primary like-button'
-    - else
-      = button_to 'Unlike', post_unlike_path(post), method: :delete,
-                                                    class: 'btn btn-primary unlike-button'
+    - if signed_in?
+      - unless post.liked_by_user?(current_user)
+        = button_to 'Like', post_like_path(post), class: 'btn btn-primary like-button'
+      - else
+        = button_to 'Unlike', post_unlike_path(post), method: :delete,
+                                                      class: 'btn btn-primary unlike-button'
     - if post.likes.any?
       = link_to "Likes: #{post.likes.count}", post_likes_path(post)
-      / = content_tag(:p, "Likes: #{post.likes.count}")
     - else
       = content_tag(:p, "Likes: 0")
         
