@@ -34,8 +34,13 @@ Rails.application.routes.draw do
                              edit
                              update
                              destroy] do
-    # comments
+    # post comments
     resources :comments, only: %i[edit create update destroy]
+
+    # post likes
+    post '/like', to: 'likes#create'
+    delete '/unlike', to: 'likes#destroy'
+    get '/likes', to: 'posts#likes'
   end
 
   # followings

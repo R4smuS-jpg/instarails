@@ -5,6 +5,10 @@ class PostPolicy < ApplicationPolicy
     true
   end
 
+  def likes?
+    user.present?
+  end
+
   def new?
     create?
   end
