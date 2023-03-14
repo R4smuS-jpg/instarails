@@ -37,7 +37,7 @@ class Post < ApplicationRecord
   end
 
   def unlike_by(user)
-    like = Like.find_by(user_id: user.id)
+    like = self.likes.find_by(user_id: user.id)
     self.likes.delete(like)
   end
 
