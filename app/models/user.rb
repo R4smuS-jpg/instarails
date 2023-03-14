@@ -2,8 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   # relations
-  has_many :posts, dependent: :delete_all
   has_many :comments, dependent: :delete_all
+  has_many :posts, dependent: :delete_all
   has_one_attached :avatar, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
@@ -29,12 +29,13 @@ class User < ApplicationRecord
 
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
-                    length: { in: 5..40},
+                    length: { in: 5..70},
                     uniqueness: true
 
   validates :nickname, presence: true,
                        length: { in: 3..40 },
                        uniqueness: true
+
   validates :biography, length: { in: 1..300 }
 
   validates :avatar, content_type: [:png, :jpg, :jpeg, :gif],
