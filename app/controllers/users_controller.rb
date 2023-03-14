@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
   # should be called if action works with current user
   def authorize_current_user!
-    authorize! current_user
+    authorize! current_user, with: UserPolicy
   end
 
   # should be called if action must be authenticated
