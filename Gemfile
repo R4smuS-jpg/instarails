@@ -36,6 +36,13 @@ gem 'pagy', '~> 6.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  gem 'rspec-rails', '~> 6.0.0'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'capybara'
 end
 
 group :development do
