@@ -1,7 +1,7 @@
 class Like < ApplicationRecord
   # relations
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, counter_cache: true
 
   # validations
   validates :user_id, presence: true

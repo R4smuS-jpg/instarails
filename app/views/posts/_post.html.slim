@@ -58,7 +58,7 @@ div.post-wrap
         = button_to 'Unlike', post_unlike_path(post), method: :delete,
                                                       class: 'btn btn-primary unlike-button'
     - if post.likes.any?
-      = link_to "Likes: #{post.likes.count}", post_likes_path(post)
+      = link_to "Likes: #{post.likes.size}", post_likes_path(post)
     - else
       = content_tag(:p, "Likes: 0")
         
@@ -71,8 +71,8 @@ div.post-wrap
   - if post.comments.any?
     div.comments-section
       - if page == :all_posts || page == :user_posts
-        - if post.comments.count > 3
-          p = link_to "All comments(#{post.comments.count})", post, class: 'manipulate-comment-link'
+        - if post.comments.size > 3
+          p = link_to "All comments(#{post.comments.size})", post, class: 'manipulate-comment-link'
         - post.comments.sort_by(&:created_at).last(3).each do |c|
           div.comment
             = render 'users/avatar', user: c.user, side: 40,   link: true

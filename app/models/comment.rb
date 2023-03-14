@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
   # relations
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, counter_cache: true
 
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
