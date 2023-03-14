@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   delete '/delete-account', to: 'users#destroy'
 
   get '/feed', to: 'users#feed'
+
   resources :users, only: %i[index show] do
     member do
       get 'followings'

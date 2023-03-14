@@ -2,10 +2,6 @@ class LikesController < ApplicationController
   before_action :set_post, only: %i[create destroy]
   before_action :set_like, only: %i[destroy]
 
-  def method_name
-    
-  end
-
   def create
     authorize!
 
