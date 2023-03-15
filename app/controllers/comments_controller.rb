@@ -43,6 +43,7 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id])
+                             .where(user_id: current_user.id)
   end
 
   def set_post
