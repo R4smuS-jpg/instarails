@@ -36,7 +36,7 @@ class User < ApplicationRecord
                        length: { in: 3..40 },
                        uniqueness: true
 
-  validates :biography, length: { in: 1..300 }
+  validates :biography, length: { maximum: 300 }
 
   validates :avatar, content_type: [:png, :jpg, :jpeg, :gif],
                      size: { less_than: 5.megabytes },
