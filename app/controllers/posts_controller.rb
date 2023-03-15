@@ -1,15 +1,7 @@
 class PostsController < ApplicationController
-  before_action :set_current_user_post, only: %i[edit
-                                                 update
-                                                 destroy]
-
-  before_action :authorize_post!, only: %i[edit
-                                           update
-                                           destroy]
-
-  before_action :authorize_action!, only: %i[likes
-                                             new
-                                             create]
+  before_action :set_current_user_post, only: %i[edit update destroy]
+  before_action :authorize_post!, only: %i[edit update destroy]
+  before_action :authorize_action!, only: %i[likes new create]
 
   def index
     @pagy, @posts = pagy(Post.with_user_with_attached_avatar
