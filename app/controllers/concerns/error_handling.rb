@@ -30,7 +30,7 @@ module ErrorHandling
 
     # user not authorized handlers
     def handle_sign_out_required
-      flash[:success] = "You are signed in already"
+      flash[:success] = 'You are signed in already'
       redirect_to current_user
     end
 

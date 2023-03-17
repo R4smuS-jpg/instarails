@@ -77,7 +77,7 @@ class PostsController < ApplicationController
   # should be called if action must be authenticated
   # but does not have variable that policy needs to get
   def authorize_action!
-    authorize! with: PostPolicy    
+    authorize! with: PostPolicy
   end
 
   def post_params

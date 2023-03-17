@@ -6,7 +6,7 @@ class Comment < ApplicationRecord
   # scopes
   scope :by_created_at, ->(order) { order(created_at: order) }
   scope :with_user_with_attached_avatar,
-    -> { includes(:user).merge(User.with_attached_avatar) }
+        -> { includes(:user).merge(User.with_attached_avatar) }
 
   # validations
   validates :content, presence: true,
