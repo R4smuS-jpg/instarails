@@ -9,10 +9,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @post
     else
-      flash[:danger] = @comment.errors
-                               .full_messages
-                               .map { |e| "Comment's #{e.downcase}"}
-                               .join('. ')
+      add_comment_fields_errors_to_flash
       redirect_to @post
     end
   end
@@ -25,10 +22,7 @@ class CommentsController < ApplicationController
       flash[:success] = 'You have successfully updated your comment'
       redirect_to @post
     else
-      flash[:danger] = @comment.errors
-                               .full_messages
-                               .map { |e| "Comment's #{e.downcase}"}
-                               .join('. ')
+      add_comment_fields_errors_to_flash
       redirect_to @post
     end
   end
@@ -40,6 +34,13 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def add_comment_fields_errors_to_flash
+    flash[:danger] = @comment.errors
+                         .full_messages
+                         .map { |e| "Comment's #{e.downcase}" }
+                         .join('. ')
+  end
 
   def set_comment
     @comment = @post.comments.find(params[:id])
