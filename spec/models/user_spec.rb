@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { create(:user) }
+  subject(:user) { create(:user) }
+  subject(:other_user) { create(:user) }
 
   it { should have_secure_password }  
 
@@ -84,6 +85,39 @@ RSpec.describe User, type: :model do
       it { should validate_presence_of(:password_confirmation) }
       it { should validate_length_of(:password_confirmation).is_at_least(8)
                                                             .is_at_most(60) }
+    end
+  end
+
+  # instance methods
+  describe '#follow' do
+    subject { user.follow(other_user) }
+
+    it 'follows other user' do
+      followings_count_before = user.followings.count
+      subject
+      followings_count_after = user.followings.count
+
+      expect(followings_count_after).to equal(followings_count_before+1)
+
+      expect(user.followings).to include(other_user)
+      expect(other_user.followers).to include(user)
+    end
+  end
+
+  describe '#unfollow' do
+    subject { user.unfollow(other_user) }
+
+    before { user.follow(other_user) }
+
+    it 'unfollows other user' do
+      followings_count_before = user.followings.count
+      subject
+      followings_count_after = user.followings.count
+
+      expect(followings_count_after).to equal(followings_count_before-1)
+
+      expect(user.followings).not_to include(other_user)
+      expect(other_user.followers).not_to include(user)
     end
   end
 end
