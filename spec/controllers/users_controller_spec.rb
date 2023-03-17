@@ -20,6 +20,11 @@ RSpec.describe UsersController, type: :controller do
         subject
         expect(response).to render_template(:index)
       end
+
+      it 'assigns users with avatar ordere by created at to @users' do
+        subject
+        expect(assign(:users)).to eq
+      end
     end
   end
 
@@ -136,7 +141,7 @@ RSpec.describe UsersController, type: :controller do
           users_count_before = User.count
           subject
           users_count_after = User.count
-          expect(users_count_after).to equal(users_count_before+1)
+          expect(users_count_after).to eq(users_count_before+1)
         end
 
         it 'redirects to user page' do
@@ -261,7 +266,7 @@ RSpec.describe UsersController, type: :controller do
         subject
         users_count_after = User.count
 
-        expect(users_count_after).to equal(users_count_before-1)
+        expect(users_count_after).to eq(users_count_before-1)
       end
 
       it 'redirects to root path' do
