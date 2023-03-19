@@ -20,11 +20,6 @@ RSpec.describe UsersController, type: :controller do
         subject
         expect(response).to render_template(:index)
       end
-
-      it 'assigns users with avatar ordere by created at to @users' do
-        subject
-        expect(assign(:users)).to eq
-      end
     end
   end
 
