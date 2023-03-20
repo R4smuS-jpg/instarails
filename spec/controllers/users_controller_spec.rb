@@ -134,7 +134,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when not signed in' do
-      context 'when model data is correct' do
+      context 'when model data is valid' do
         it 'creates new user in database' do
           users_count_before = User.count
           subject
@@ -148,7 +148,7 @@ RSpec.describe UsersController, type: :controller do
         end
       end
 
-      context 'when model data is not correct' do
+      context 'when model data is not valid' do
         subject { post :create, params: invalid_user_params }
 
         it 'returns new user page' do
@@ -202,8 +202,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'PATCH #update' do
     let(:update_valid_user_params) do
-      { user: { id: user.id,
-                email: user.email + 'adsdasdas',
+      { user: { email: user.email + 'adsdasdas',
                 nickname: user.nickname + '12131231',
                 biography: user.biography + 'asdasa',
                 full_name: user.full_name + '1231231',
@@ -212,8 +211,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     let(:update_invalid_user_params) do
-      { user: { id: user.id,
-                email: 'usermailru',
+      { user: { email: 'usermailru',
                 nickname: '',
                 biography: 'lorem ipsum',
                 full_name: '',
@@ -234,7 +232,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when signed in' do
       before { sign_in_as(user) }
 
-      context 'when model data is correct' do
+      context 'when model data is valid' do
         it 'redirects to user page' do
           subject
 
@@ -242,11 +240,12 @@ RSpec.describe UsersController, type: :controller do
         end
       end
 
-      context 'when model data is not correct' do
+      context 'when model data is not valid' do
         subject { patch :update, params: update_invalid_user_params }
 
         it 'renders edit user page' do
           subject
+
           expect(response).to render_template(:edit)
         end
       end
