@@ -136,13 +136,10 @@ RSpec.describe UsersController, type: :controller do
     context 'when not signed in' do
       context 'when model data is valid' do
         it 'creates new user in database' do
-          users_count_before = User.count
-          subject
-          users_count_after = User.count
-          expect(users_count_after).to eq(users_count_before+1)
+          expect { subject } .to change(User, :count).by(1) 
         end
 
-        it 'redirects to user page' do
+        it 'redirects to the user page' do
           subject
           expect(response).to redirect_to(
             User.find_by(email: valid_user_params[:user][:email])
@@ -268,11 +265,7 @@ RSpec.describe UsersController, type: :controller do
       before  { sign_in_as(user) }
 
       it 'destroys user in database' do
-        users_count_before = User.count
-        subject
-        users_count_after = User.count
-
-        expect(users_count_after).to eq(users_count_before-1)
+        expect { subject } .to change(User, :count).by(-1) 
       end
 
       it 'redirects to root path' do
