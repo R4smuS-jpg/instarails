@@ -144,7 +144,9 @@ RSpec.describe UsersController, type: :controller do
 
         it 'redirects to user page' do
           subject
-          expect(response).to redirect_to(User.last) 
+          expect(response).to redirect_to(
+            User.find_by(email: valid_user_params[:user][:email])
+          ) 
         end
       end
 
