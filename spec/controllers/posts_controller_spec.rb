@@ -86,6 +86,10 @@ RSpec.describe PostsController, type: :controller do
           posts_count_after = Post.count
 
           expect(posts_count_after).to eq(posts_count_before+1)
+        end
+
+        it 'redirects to the post page' do
+          subject
           expect(response).to redirect_to(Post.last)
         end
       end
@@ -105,6 +109,26 @@ RSpec.describe PostsController, type: :controller do
       it 'redirects to sign in path' do
         subject
         expect(response).to redirect_to(sign_in_path)
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    subject { get :show, params: { id: post_1.id } }
+
+    context 'when not signed in' do
+      it 'redirects to sign in path' do
+        subject
+        expect(response).to redirect_to(sign_in_path)
+      end
+    end
+
+    context 'when signed in' do
+      before { sign_in_as(user) }
+
+      it 'returns new post page' do
+        subject
+        expect(response).to render_template(:show)
       end
     end
   end
@@ -171,5 +195,30 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to redirect_to(sign_in_path)
       end
     end  
+  end
+
+  describe 'DELETE #destroy' do
+    subject { delete :destroy, params: { id: post_1.id } }
+
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        subject
+        expect(response).to redirect_to(sign_in_path)
+      end
+    end
+
+    context 'when signed in' do
+      before  { sign_in_as(user) }
+
+      it 'destroys post in database' do
+        post_1
+        expect { subject }.to change(Post, :count).by(-1)
+      end
+
+      it 'redirects to root path' do
+        subject
+        expect(response).to redirect_to(user)
+      end
+    end
   end
 end

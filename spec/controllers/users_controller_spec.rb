@@ -265,7 +265,7 @@ RSpec.describe UsersController, type: :controller do
       before  { sign_in_as(user) }
 
       it 'destroys user in database' do
-        expect { subject } .to change(User, :count).by(-1) 
+        expect { subject }.to change(User, :count).by(-1) 
       end
 
       it 'redirects to root path' do
