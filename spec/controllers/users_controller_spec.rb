@@ -104,20 +104,23 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:user_params) { { user: {
-                            email: 'user@mail.ru',
-                            nickname: 'aboba',
-                            biography: 'lorem ipsum blah blah blah',
-                            full_name: 'full user name',
-                            password: 'password123',
-                            password_confirmation: 'password123' } } }
-    let(:incorrect_user_params) { { user: { 
-                                      email: 'usermailru',
-                                      nickname: '',
-                                      biography: 'lorem ipsum',
-                                      full_name: '',
-                                      password: '123',
-                                      password_confirmation: '456' } } }
+    let(:user_params) do 
+      { user: { email: 'user@mail.ru',
+                nickname: 'aboba',
+                biography: 'lorem ipsum blah blah blah',
+                full_name: 'full user name',
+                password: 'password123',
+                password_confirmation: 'password123' } }
+    end
+
+    let(:incorrect_user_params) do
+      { user: { email: 'usermailru',
+                nickname: '',
+                biography: 'lorem ipsum',
+                full_name: '',
+                password: '123',
+                password_confirmation: '456' } }
+    end
 
     subject { post :create, params: user_params }
 
@@ -195,23 +198,25 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:update_user_params) { { user: { 
-                                   id: user.id,
-                                   email: user.email + 'adsdasdas',
-                                   nickname: user.nickname + '12131231',
-                                   biography: user.biography + 'asdasa',
-                                   full_name: user.full_name + '1231231',
-                                   password: user.password + '123',
-                                   password_confirmation:
-                                     user.password + '123' } } }
-    let(:incorrect_update_user_params) { { user: { 
-                                             id: user.id,
-                                             email: 'usermailru',
-                                             nickname: '',
-                                             biography: 'lorem ipsum',
-                                             full_name: '',
-                                             password: '123',
-                                             password_confirmation: '456' } } }
+    let(:update_user_params) do
+      { user: { id: user.id,
+                email: user.email + 'adsdasdas',
+                nickname: user.nickname + '12131231',
+                biography: user.biography + 'asdasa',
+                full_name: user.full_name + '1231231',
+                password: user.password + '123',
+                password_confirmation: user.password + '123' } }
+    end
+
+    let(:incorrect_update_user_params) do
+      { user: { id: user.id,
+                email: 'usermailru',
+                nickname: '',
+                biography: 'lorem ipsum',
+                full_name: '',
+                password: '123',
+                password_confirmation: '456' } }
+    end
 
     subject { patch :update, params: update_user_params }
 
