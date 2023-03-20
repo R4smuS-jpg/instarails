@@ -104,7 +104,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:user_params) do 
+    let(:valid_user_params) do 
       { user: { email: 'user@mail.ru',
                 nickname: 'aboba',
                 biography: 'lorem ipsum blah blah blah',
@@ -113,7 +113,7 @@ RSpec.describe UsersController, type: :controller do
                 password_confirmation: 'password123' } }
     end
 
-    let(:incorrect_user_params) do
+    let(:invalid_user_params) do
       { user: { email: 'usermailru',
                 nickname: '',
                 biography: 'lorem ipsum',
@@ -122,7 +122,7 @@ RSpec.describe UsersController, type: :controller do
                 password_confirmation: '456' } }
     end
 
-    subject { post :create, params: user_params }
+    subject { post :create, params: valid_user_params }
 
     context 'when signed in' do
       before { sign_in_as(user) }
@@ -149,8 +149,11 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'when model data is not correct' do
+        subject { post :create, params: invalid_user_params }
+
         it 'returns new user page' do
-          post :create, params: incorrect_user_params
+          subject
+
           expect(response).to render_template(:new)
         end
       end
@@ -198,7 +201,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:update_user_params) do
+    let(:update_valid_user_params) do
       { user: { id: user.id,
                 email: user.email + 'adsdasdas',
                 nickname: user.nickname + '12131231',
@@ -208,7 +211,7 @@ RSpec.describe UsersController, type: :controller do
                 password_confirmation: user.password + '123' } }
     end
 
-    let(:incorrect_update_user_params) do
+    let(:update_invalid_user_params) do
       { user: { id: user.id,
                 email: 'usermailru',
                 nickname: '',
@@ -218,11 +221,12 @@ RSpec.describe UsersController, type: :controller do
                 password_confirmation: '456' } }
     end
 
-    subject { patch :update, params: update_user_params }
+    subject { patch :update, params: update_valid_user_params }
 
     context 'when not signed in' do
       it 'redirects to sign in page' do
         subject
+
         expect(response).to redirect_to(sign_in_path)
       end
     end
@@ -233,12 +237,13 @@ RSpec.describe UsersController, type: :controller do
       context 'when model data is correct' do
         it 'redirects to user page' do
           subject
+
           expect(response).to redirect_to(user) 
         end
       end
 
       context 'when model data is not correct' do
-        subject { patch :update, params: incorrect_update_user_params }
+        subject { patch :update, params: update_invalid_user_params }
 
         it 'renders edit user page' do
           subject
