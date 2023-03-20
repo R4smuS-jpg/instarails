@@ -76,7 +76,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when signed in' do
       before { sign_in_as(user) }
 
-      it 'returns page with feed' do
+      it 'returns feed page' do
         subject
         expect(response).to render_template(:feed)
       end
@@ -87,7 +87,7 @@ RSpec.describe UsersController, type: :controller do
     subject { get :new }
 
     context 'when not signed in' do
-      it 'returns page with sign up form' do
+      it 'returns sign up page' do
         subject
         expect(response).to render_template(:new)
       end
@@ -149,7 +149,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'when model data is not correct' do
-        it 'renders new user page' do
+        it 'returns new user page' do
           post :create, params: incorrect_user_params
           expect(response).to render_template(:new)
         end
@@ -161,7 +161,7 @@ RSpec.describe UsersController, type: :controller do
     subject { get :show, params: {id: user.id} }
 
     context 'when not signed in' do
-      it 'returns page with account' do
+      it 'returns account page' do
         subject
         expect(response).to render_template(:show)
       end
@@ -170,7 +170,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when signed in' do
       before { sign_in_as(user) }
 
-      it 'returns page with account' do
+      it 'returns account page' do
         subject
         expect(response).to render_template(:show)
       end
@@ -190,7 +190,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when signed in' do
       before  { sign_in_as(user) }
 
-      it 'returns page with edit user form' do
+      it 'returns edit user page' do
         subject
         expect(response).to render_template(:edit)
       end
