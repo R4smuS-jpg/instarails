@@ -5,7 +5,6 @@ module ControllersHelpers
 
   def signed_in?
     cookies[:current_user_id].present?
-    byebug
   end
 end
 
