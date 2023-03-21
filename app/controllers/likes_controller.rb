@@ -4,16 +4,12 @@ class LikesController < ApplicationController
   before_action :set_like, only: %i[destroy]
 
   def create
-    authorize!
-
     @post.like_by(current_user)
 
     redirect_to @post
   end
 
   def destroy
-    authorize!
-
     @post.unlike_by(current_user)
 
     redirect_to @post
