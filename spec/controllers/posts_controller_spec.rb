@@ -215,9 +215,9 @@ RSpec.describe PostsController, type: :controller do
         expect { subject }.to change(Post, :count).by(-1)
       end
 
-      it 'redirects to root path' do
+      it 'redirects to posts\'s user page' do
         subject
-        expect(response).to redirect_to(user)
+        expect(response).to redirect_to(post_1.user)
       end
     end
   end
