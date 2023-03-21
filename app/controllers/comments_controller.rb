@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
+  before_action :authorize_action!, only: %i[create edit update destroy]
   before_action :set_post, only: %i[create edit update destroy]
   before_action :set_comment, only: %i[edit update destroy]
-  before_action :authorize_comment!, only: %i[edit update destroy]
+  # before_action :authorize_comment!, only: %i[edit update destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -43,8 +44,7 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = @post.comments.find(params[:id])
-                             .where(user_id: current_user.id)
+    @comment = @post.comments.where(user_id: current_user.id).find(params[:id])
   end
 
   def set_post
@@ -53,6 +53,10 @@ class CommentsController < ApplicationController
 
   def authorize_comment!
     authorize! @comment
+  end
+
+  def authorize_action!
+    authorize! with: CommentPolicy
   end
 
   def comment_params
