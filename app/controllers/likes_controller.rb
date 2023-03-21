@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+  before_action :authorize_action!, only: %i[create destroy]
   before_action :set_post, only: %i[create destroy]
   before_action :set_like, only: %i[destroy]
 
@@ -19,6 +20,10 @@ class LikesController < ApplicationController
   end
 
   private
+
+  def authorize_action!
+    authorize! with: LikePolicy
+  end
 
   def set_post
     @post = Post.find(params[:post_id])
