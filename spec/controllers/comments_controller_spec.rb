@@ -88,9 +88,13 @@ RSpec.describe CommentsController, type: :controller do
     end
 
     context 'when signed in' do
-      context 'when comment data is valid'
+      before { sign_in_as(user) }
+
+      context 'when comment data is valid' do
+        # я может чего-то не понимаю, но разве аттрибут content
+        # не должен меняться?(((((
         it 'updates comment' do
-          expect { subject }.to change(comment.content)
+          expect { subject }.to change(comment, :content)
         end
 
         it 'redirects to comment\'s post page' do
@@ -106,6 +110,32 @@ RSpec.describe CommentsController, type: :controller do
           subject
           expect(response).to redirect_to(comment.post)
         end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    subject { delete :destroy, params: { post_id: comment.post.id,
+                                         id: comment.id } }
+
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        subject
+        expect(response).to redirect_to(sign_in_path)
+      end
+    end
+
+    context 'when signed in' do
+      before { sign_in_as(user) }
+
+      it 'destroys comment' do
+        comment
+        expect { subject }.to change(Comment, :count).by(-1)
+      end
+
+      it 'redirects to deleted comment\'s post page' do
+        subject
+        expect(response).to redirect_to(comment.post)
       end
     end
   end
