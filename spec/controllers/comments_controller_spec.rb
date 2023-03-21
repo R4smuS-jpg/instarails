@@ -26,7 +26,7 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
 
-      context 'when comment data is invalid' do
+      context 'when comment data is not valid' do
         subject { post :create, params: invalid_comment_params }
 
         it 'redirects to the post page' do
@@ -103,7 +103,7 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
 
-      context 'when comment data is invalid' do
+      context 'when comment data is not valid' do
         subject { patch :update, params: invalid_update_comment_params }
 
         it 'redirects to comment\'s post page' do
