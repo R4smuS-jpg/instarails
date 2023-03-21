@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
+  before_action :authorize_action!, only: %i[create edit update destroy]
   before_action :set_post, only: %i[create edit update destroy]
   before_action :set_comment, only: %i[edit update destroy]
-  before_action :authorize_comment!, only: %i[edit update destroy]
+  # before_action :authorize_comment!, only: %i[edit update destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -9,10 +10,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @post
     else
-      flash[:danger] = @comment.errors
-                               .full_messages
-                               .map { |e| "Comment's #{e.downcase}"}
-                               .join('. ')
+      add_comment_fields_errors_to_flash
       redirect_to @post
     end
   end
@@ -25,10 +23,7 @@ class CommentsController < ApplicationController
       flash[:success] = 'You have successfully updated your comment'
       redirect_to @post
     else
-      flash[:danger] = @comment.errors
-                               .full_messages
-                               .map { |e| "Comment's #{e.downcase}"}
-                               .join('. ')
+      add_comment_fields_errors_to_flash
       redirect_to @post
     end
   end
@@ -41,8 +36,15 @@ class CommentsController < ApplicationController
 
   private
 
+  def add_comment_fields_errors_to_flash
+    flash[:danger] = @comment.errors
+                         .full_messages
+                         .map { |e| "Comment's #{e.downcase}" }
+                         .join('. ')
+  end
+
   def set_comment
-    @comment = @post.comments.find(params[:id])
+    @comment = @post.comments.where(user_id: current_user.id).find(params[:id])
   end
 
   def set_post
@@ -51,6 +53,10 @@ class CommentsController < ApplicationController
 
   def authorize_comment!
     authorize! @comment
+  end
+
+  def authorize_action!
+    authorize! with: CommentPolicy
   end
 
   def comment_params

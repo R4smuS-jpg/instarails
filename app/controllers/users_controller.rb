@@ -72,14 +72,14 @@ class UsersController < ApplicationController
   end
 
   def delete_avatar
-    unless current_user.avatar.blank?
-      current_user.delete_avatar
-      flash[:success] = 'You have successfully deleted your avatar'
-      redirect_to current_user
-    else
+    if current_user.avatar.blank?
       # kostil' =)
       flash[:success] = 'You have successfully deleted your avatar'
       render :edit
+    else
+      current_user.delete_avatar
+      flash[:success] = 'You have successfully deleted your avatar'
+      redirect_to current_user
     end
   end
 

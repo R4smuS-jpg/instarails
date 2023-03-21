@@ -6,7 +6,7 @@ class FollowingsController < ApplicationController
 
   def create
     @user = User.find(params[:id])
-    current_user.follow(@user) 
+    current_user.follow(@user)
     flash[:success] = "Now you follow #{@user.nickname}"
     redirect_to @user
   end
@@ -30,7 +30,7 @@ class FollowingsController < ApplicationController
   end
 
   def not_following
-    flash[:danger] = 
+    flash[:danger] =
       "You do not follow #{User.find(params[:id]).nickname} to unfollow"
     redirect_to current_user
   end

@@ -24,19 +24,19 @@ module ErrorHandling
       if sign_out_required_paths.include?(path)
         handle_sign_out_required
       else
-        handler_not_authorized
+        handle_not_signed_in
       end
     end
 
     # user not authorized handlers
     def handle_sign_out_required
-      flash[:success] = "You are signed in already"
+      flash[:success] = 'You are signed in already'
       redirect_to current_user
     end
 
-    def handler_not_authorized
-      flash[:danger] = 'You are not allowed to perform this action'
-      redirect_to root_path
+    def handle_not_signed_in
+      flash[:danger] = 'You must be signed in perform this action'
+      redirect_to sign_in_path
     end
   end
 end

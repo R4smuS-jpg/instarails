@@ -1,15 +1,7 @@
 class PostsController < ApplicationController
-  before_action :set_current_user_post, only: %i[edit
-                                                 update
-                                                 destroy]
-
-  before_action :authorize_post!, only: %i[edit
-                                           update
-                                           destroy]
-
-  before_action :authorize_action!, only: %i[likes
-                                             new
-                                             create]
+  before_action :authorize_action!, only: %i[edit update destroy likes new create]
+  before_action :set_current_user_post, only: %i[edit update destroy]
+  # before_action :authorize_post!, only: %i[edit update destroy]
 
   def index
     @pagy, @posts = pagy(Post.with_user_with_attached_avatar
@@ -55,7 +47,7 @@ class PostsController < ApplicationController
       redirect_to @post
       flash[:success] = 'You have successfully updated your post'
     else
-      render :new
+      render :edit
     end
   end
 
@@ -85,7 +77,7 @@ class PostsController < ApplicationController
   # should be called if action must be authenticated
   # but does not have variable that policy needs to get
   def authorize_action!
-    authorize! with: PostPolicy    
+    authorize! with: PostPolicy
   end
 
   def post_params

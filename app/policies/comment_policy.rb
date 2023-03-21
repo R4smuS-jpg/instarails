@@ -10,10 +10,10 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-    comment.user == user
+    user.present?
   end
 
   def destroy?
-    comment.user == user
+    user.present?
   end
 end

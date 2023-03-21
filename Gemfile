@@ -33,9 +33,21 @@ gem 'slim'
 gem 'shrine'
 gem 'pagy', '~> 6.0'
 
+gem 'ffaker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'capybara'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

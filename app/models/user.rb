@@ -2,17 +2,17 @@ class User < ApplicationRecord
   has_secure_password
 
   # relations
-  has_many :posts, dependent: :delete_all
   has_many :comments, dependent: :delete_all
+  has_many :posts, dependent: :delete_all
   has_one_attached :avatar, dependent: :destroy
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
+  has_many :active_relationships, class_name: 'Relationship',
+                                  foreign_key: 'follower_id',
                                   dependent: :destroy
   has_many :followings, through: :active_relationships,
                         source: :followed
 
-  has_many :passive_relationships, class_name: "Relationship",
-                                   foreign_key: "followed_id",
+  has_many :passive_relationships, class_name: 'Relationship',
+                                   foreign_key: 'followed_id',
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships,
                        source: :follower
@@ -29,15 +29,16 @@ class User < ApplicationRecord
 
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
-                    length: { in: 5..40},
+                    length: { in: 5..70 },
                     uniqueness: true
 
   validates :nickname, presence: true,
                        length: { in: 3..40 },
                        uniqueness: true
-  validates :biography, length: { in: 1..300 }
 
-  validates :avatar, content_type: [:png, :jpg, :jpeg, :gif],
+  validates :biography, length: { maximum: 300 }
+
+  validates :avatar, content_type: %i[png jpg jpeg gif],
                      size: { less_than: 5.megabytes },
                      limit: { max: 1 }
 
@@ -48,7 +49,7 @@ class User < ApplicationRecord
   # because has_secure_password automatically adds it
   validates :password, length: { in: 8..60 }
 
-  validates :password_confirmation, presence: true, 
+  validates :password_confirmation, presence: true,
                                     length: { in: 8..60 }
   # instance methods
   def delete_avatar
